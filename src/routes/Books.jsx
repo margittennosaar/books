@@ -1,3 +1,7 @@
+// importing items such as A React hook for managing state in functional components. 
+// imports axios - which is similar to fetch in vanilla js
+// importing react elements from other files
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -13,9 +17,15 @@ import {
   Typography,
 } from '@mui/material';
 
+
+
 function Books() {
+
+  // setting up usestates for books and isLoading
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // checks whether the books array is 0 and if it is it calls getBooks
 
   useEffect(() => {
     if (books.length === 0) {
@@ -24,6 +34,8 @@ function Books() {
   }, []);
 
   // TODO: Replace axios with useAxios hook
+
+  // old function to fetch books. This will be replaced
   async function getBooks() {
     try {
       const response = await axios.get('http://localhost:3000/books');
@@ -35,7 +47,11 @@ function Books() {
   }
 
   // TODO: Implement search functionality
+   {/* show loading circle if data is still being fetched */}
+    {/* maps books and displays it on card */}
   return (
+
+     
     <Box sx={{ mx: 'auto', p: 2 }}>
       {isLoading && <CircularProgress />}
       {!isLoading && (
@@ -47,6 +63,8 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
+
+             
             {books.map((book) => (
               <Card
                 sx={{
@@ -85,6 +103,8 @@ function Books() {
                     pl: 2,
                   }}
                 >
+
+                    {/* displays raiting on card */}
                   <Rating
                     name="read-only"
                     value={book.stars}

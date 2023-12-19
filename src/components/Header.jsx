@@ -1,6 +1,10 @@
+// Importing items
+
 import { Link } from 'react-router-dom';
 import { Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
 
+
+// Header function to render the header
 function Header() {
     return (
         <Box sx={{ flexGrow: 1 }}>

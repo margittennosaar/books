@@ -7,6 +7,7 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
+// styling
 const theme = createTheme({
   palette: {
     primary: {
@@ -18,6 +19,8 @@ const theme = createTheme({
   },
 });
 
+
+// creates the rooting in react
 function App() {
   const router = createBrowserRouter([
     {

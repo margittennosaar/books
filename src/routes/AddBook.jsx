@@ -1,3 +1,7 @@
+// Add book page
+
+// importing items such as A React hook for managing state in functional components. Various components from Material-UI library. useAxios: A custom hook for making HTTP requests. bookGenres: An array or object containing book genres. Stack and Typography components from Material-UI for layout purposes.
+
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -13,7 +17,13 @@ import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
+
+// function to add a book
 function AddBook() {
+
+  // declaring constants
+  // Destructing of useAxios
+  // Setting states using useState
   const { alert, post } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
@@ -26,6 +36,11 @@ function AddBook() {
     stars: null,
   });
 
+  // Change Handler for genre
+  // Handles changes in the form input
+  // value is extracted from the event.target
+  // then book state is set using the setBook function
+
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -34,6 +49,11 @@ function AddBook() {
     });
   };
 
+  // Change Handler for the stars
+  // Change Handler for genre
+  // Handles changes in the form input
+  // value is again extracted from the event.target
+
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -41,6 +61,11 @@ function AddBook() {
       stars: value,
     });
   };
+
+  // Adds book to database
+  //the const destructures to extract the properties name, value, checked, type from event target
+  // these are properties from the element that trigger the event-rateChangeHandler
+
 
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
@@ -51,12 +76,22 @@ function AddBook() {
     }
   };
 
+  // Updates the books on the server
+  // this need to be updated (imagine it is a new ticket)
+
   function postHandler() {
     post('books', book);
   }
 
+  // renders the add book page
+
   return (
+
+    // when the form changed fire the add book handler 
+    // when the ADD BOOK button is pressed fire the postHandler
     <form onChange={addBookHandler} onSubmit={postHandler}>
+
+      {/* renders the Add a book page */}
       <Stack
         spacing={1}
         alignItems="stretch"
