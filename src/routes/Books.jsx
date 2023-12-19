@@ -20,7 +20,7 @@ function Books() {
   useEffect(() => {
     if (books.length === 0) {
       getBooks();
-    }
+    }//if condition is met then get books function is called
   }, []);
 
   // TODO: Replace axios with useAxios hook
