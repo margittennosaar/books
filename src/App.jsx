@@ -1,12 +1,17 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+//import UI component from MUI 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
+//import routes 
 import Root from './routes/Root';
 import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
+//create a variable 
 const theme = createTheme({
   palette: {
     primary: {
