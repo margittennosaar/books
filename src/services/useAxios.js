@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const useAxios = (baseUrl) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +26,7 @@ const useAxios = (baseUrl) => {
     }
   };
   const get = async (endpoint) => makeRequest('get', endpoint);
+
   const post = async (endpoint, payload) =>
     makeRequest('post', endpoint, payload);
   const update = async (endpoint, payload) =>
