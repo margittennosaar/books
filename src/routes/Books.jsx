@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 import {
   Box,
   Card,
@@ -17,18 +18,15 @@ import {
   Typography,
 } from '@mui/material';
 
-
+import useAxios from '../services/useAxios';
 
 function Books() {
-
-  // setting up usestates for books and isLoading
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, get } = useAxios('http://localhost:3000');
 
   // checks whether the books array is 0 and if it is it calls getBooks
 
   useEffect(() => {
-    if (books.length === 0) {
+    if (data.length === 0) {
       getBooks();
     }
   }, []);
@@ -36,7 +34,7 @@ function Books() {
   // TODO: Replace axios with useAxios hook
 
   // old function to fetch books. This will be replaced
-  async function getBooks() {
+/*   async function getBooks() {
     try {
       const response = await axios.get('http://localhost:3000/books');
       setBooks(response.data);
@@ -44,6 +42,12 @@ function Books() {
     } catch (error) {
       console.error(error);
     }
+  } */
+
+  // new function to fetch books
+
+  function getBooks () {
+    get('books')
   }
 
   // TODO: Implement search functionality
@@ -51,10 +55,9 @@ function Books() {
     {/* maps books and displays it on card */}
   return (
 
-     
     <Box sx={{ mx: 'auto', p: 2 }}>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
+      {loading && <CircularProgress />}
+      {!loading && (
         <div>
           <Stack
             sx={{ justifyContent: 'space-around' }}
@@ -63,9 +66,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-
-             
-            {books.map((book) => (
+            {data.map((book) => (
               <Card
                 sx={{
                   display: 'flex',
