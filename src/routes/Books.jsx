@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Box,
   Card,
@@ -11,48 +11,43 @@ import {
   Rating,
   Chip,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
+import useAxios from "../services/useAxios";
 
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, get } = useAxios("http://localhost:3000"); // using the useAxios hook all those variable in curly bracket will be fetched from URl
 
   useEffect(() => {
-    if (books.length === 0) {
+    if (data.length === 0) {
       getBooks();
     }
   }, []);
 
   // TODO: Replace axios with useAxios hook
-  async function getBooks() {
-    try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+
+  function getBooks() {
+    get("books");
   }
 
   // TODO: Implement search functionality
   return (
-    <Box sx={{ mx: 'auto', p: 2 }}>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
+    <Box sx={{ mx: "auto", p: 2 }}>
+      {loading && <CircularProgress />}
+      {!loading && (
         <div>
           <Stack
-            sx={{ justifyContent: 'space-around' }}
+            sx={{ justifyContent: "space-around" }}
             spacing={{ xs: 1 }}
             direction="row"
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {data.map((book) => (
               <Card
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '15%',
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "15%",
                   minWidth: 200,
                 }}
                 key={book.name}
@@ -80,8 +75,8 @@ function Books() {
                 </Box>
                 <CardActions
                   sx={{
-                    justifyContent: 'space-between',
-                    mt: 'auto',
+                    justifyContent: "space-between",
+                    mt: "auto",
                     pl: 2,
                   }}
                 >
