@@ -15,7 +15,7 @@ import { Stack, Typography } from '@mui/material';
 
 //to return a form for adding new books 
 function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+  const { alert, post, showAlert } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
@@ -56,7 +56,8 @@ function AddBook() {
   };
 
   //send the input after form submitted 
-  function postHandler() {
+  function postHandler(e) {
+    e.preventDefault();
     post('books', book);
   }
 
@@ -67,7 +68,7 @@ function AddBook() {
         alignItems="stretch"
         sx={{ my: 2, mx: 'auto', width: '25%' }}
       >
-        {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+        {alert.show && <Alert severity={alert.type} >{alert.message}</Alert>}
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
@@ -124,7 +125,9 @@ function AddBook() {
             }}
           />
         </Stack>
-        <Button variant="contained" type="submit">
+        <Button 
+        variant="contained" 
+        type="submit">
           Add new
         </Button>
       </Stack>
