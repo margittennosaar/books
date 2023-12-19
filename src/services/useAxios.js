@@ -9,7 +9,7 @@ import {useState} from 'react';
 import axios from 'axios';
 
 const useAxios = (baseUrl) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [alert, setAlert] = useState({show: false, message: '', type: ''});
   const [loading, setLoading] = useState(false);
 
