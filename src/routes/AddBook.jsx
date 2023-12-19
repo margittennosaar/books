@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Rating from '@mui/material/Rating';
-import Button from '@mui/material/Button';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Alert from '@mui/material/Alert';
-import { DateField } from '@mui/x-date-pickers/DateField';
-import useAxios from '../services/useAxios';
-import { bookGenres } from '../genres';
-import { Stack, Typography } from '@mui/material';
+import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Rating from "@mui/material/Rating";
+import Button from "@mui/material/Button";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Alert from "@mui/material/Alert";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import useAxios from "../services/useAxios";
+import { bookGenres } from "../genres";
+import { Stack, Typography } from "@mui/material";
 
 function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+  const { alert, post } = useAxios("http://localhost:3000");
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
-    author: '',
-    name: '',
+    author: "",
+    name: "",
     genres: [],
     completed: false,
     start: null,
@@ -30,7 +30,7 @@ function AddBook() {
     const { value } = event.target;
     setBook({
       ...book,
-      genres: typeof value === 'string' ? value.split(',') : value,
+      genres: typeof value === "string" ? value.split(",") : value,
     });
   };
 
@@ -44,7 +44,7 @@ function AddBook() {
 
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
-    if (type === 'checkbox' && name === 'completed') {
+    if (type === "checkbox" && name === "completed") {
       setBook({ ...book, [name]: checked });
     } else {
       setBook({ ...book, [name]: value });
@@ -52,7 +52,7 @@ function AddBook() {
   };
 
   function postHandler() {
-    post('books', book);
+    post("books", book);
   }
 
   return (
@@ -60,7 +60,7 @@ function AddBook() {
       <Stack
         spacing={1}
         alignItems="stretch"
-        sx={{ my: 2, mx: 'auto', width: '25%' }}
+        sx={{ my: 2, mx: "auto", width: "25%" }}
       >
         {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
