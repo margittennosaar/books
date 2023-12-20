@@ -17,11 +17,37 @@ import useAxios from "../services/useAxios";
 function Books() {
   const { data, loading, get } = useAxios("http://localhost:3000"); // using the useAxios hook all those variable in curly bracket will be fetched from URl
 
+  const [searchInput, setSearchInput] = useState(""); // sets the search data
+
   useEffect(() => {
     if (data.length === 0) {
       getBooks();
     }
   }, []);
+
+  /* const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+    console.log(searchInput);
+  };
+
+  if (searchInput.length > 0) {
+    data.filter((book) => {
+      book.name.toLowerCase().includes(searchInput.toLowerCase());
+    });
+  } */
+
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+
+    setSearchInput(searchTerm);
+  };
+
+  const filteredItems = data.filter(
+    (book) =>
+      book.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   // TODO: Replace axios with useAxios hook
 
@@ -35,6 +61,13 @@ function Books() {
       {loading && <CircularProgress />}
       {!loading && (
         <div>
+          <input
+            type="search"
+            placeholder="Search here"
+            onChange={handleChange}
+            value={searchInput}
+          />
+
           <Stack
             sx={{ justifyContent: "space-around" }}
             spacing={{ xs: 1 }}
@@ -42,7 +75,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {data.map((book) => (
+            {filteredItems.map((book) => (
               <Card
                 sx={{
                   display: "flex",

@@ -4,7 +4,8 @@ import axios from "axios";
 const useAxios = (baseUrl) => {
   const [data, setData] = useState(
     []
-  ); /* previously it was null  and i gave it empty array and those data from json file comes here. and i can take data from here in books.jsx */
+  ); /* previously it was null  and i gave it empty array and those data from json file comes here. and i can take data from here in books.jsx, for that we have use map to get individual data */
+
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [loading, setLoading] = useState(false);
 
