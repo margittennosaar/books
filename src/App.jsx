@@ -7,6 +7,7 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
+// Create color scheme for the UI
 const theme = createTheme({
   palette: {
     primary: {

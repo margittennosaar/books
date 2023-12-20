@@ -25,7 +25,7 @@ function AddBook() {
     end: null,
     stars: null,
   });
-
+// add the user's selected genres to the new book
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -33,7 +33,7 @@ function AddBook() {
       genres: typeof value === 'string' ? value.split(',') : value,
     });
   };
-
+// add the specified rating to the new book
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -41,7 +41,7 @@ function AddBook() {
       stars: value,
     });
   };
-
+// to create a new book object
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
@@ -50,7 +50,7 @@ function AddBook() {
       setBook({ ...book, [name]: value });
     }
   };
-
+// to push the new book to the server
   function postHandler() {
     post('books', book);
   }
