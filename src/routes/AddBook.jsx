@@ -54,6 +54,7 @@ function AddBook() {
   function postHandler() {
     post('books', book);
   }//to post data to an endpoint
+ 
 
   return (
     <form onChange={addBookHandler} onSubmit={postHandler}>
@@ -62,7 +63,9 @@ function AddBook() {
         alignItems="stretch"
         sx={{ my: 2, mx: 'auto', width: '25%' }}
       >
-        {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+        {alert.show && <Alert severity={alert.type}>{alert.message} 
+        </Alert>}
+        
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
