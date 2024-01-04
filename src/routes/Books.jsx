@@ -1,22 +1,12 @@
-// importing items such as A React hook for managing state in functional components. 
+// importing items such as A React hook for managing state in functional components.
 // imports axios - which is similar to fetch in vanilla js
 // importing react elements from other files
 
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import {
-  Box,
-  Card,
-  CardActions,
-  CardMedia,
-  Button,
-  CircularProgress,
-  Stack,
-  Rating,
-  Chip,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardActions, CardMedia, Button, CircularProgress, Stack, Rating, Chip, Typography } from '@mui/material';
 
 import useAxios from '../services/useAxios';
 
@@ -34,7 +24,7 @@ function Books() {
   // TODO: Replace axios with useAxios hook
 
   // old function to fetch books. This will be replaced
-/*   async function getBooks() {
+  /*   async function getBooks() {
     try {
       const response = await axios.get('http://localhost:3000/books');
       setBooks(response.data);
@@ -46,26 +36,23 @@ function Books() {
 
   // new function to fetch books
 
-  function getBooks () {
-    get('books')
+  function getBooks() {
+    get('books');
   }
 
   // TODO: Implement search functionality
-   {/* show loading circle if data is still being fetched */}
-    {/* maps books and displays it on card */}
+  {
+    /* show loading circle if data is still being fetched */
+  }
+  {
+    /* maps books and displays it on card */
+  }
   return (
-
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
       {!loading && (
         <div>
-          <Stack
-            sx={{ justifyContent: 'space-around' }}
-            spacing={{ xs: 1 }}
-            direction="row"
-            useFlexGap
-            flexWrap="wrap"
-          >
+          <Stack sx={{ justifyContent: 'space-around' }} spacing={{ xs: 1 }} direction="row" useFlexGap flexWrap="wrap">
             {data.map((book) => (
               <Card
                 sx={{
@@ -76,19 +63,10 @@ function Books() {
                 }}
                 key={book.name}
               >
-                <CardMedia
-                  sx={{ height: 250 }}
-                  image={book.img}
-                  title={book.name}
-                />
+                <CardMedia sx={{ height: 250 }} image={book.img} title={book.name} />
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {book.genres.map((genre, i) => (
-                    <Chip
-                      key={i}
-                      label={genre}
-                      variant="outlined"
-                      size="small"
-                    />
+                    <Chip key={i} label={genre} variant="outlined" size="small" />
                   ))}
                   <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
                     {book.name}
@@ -104,15 +82,11 @@ function Books() {
                     pl: 2,
                   }}
                 >
-
-                    {/* displays raiting on card */}
-                  <Rating
-                    name="read-only"
-                    value={book.stars}
-                    readOnly
-                    size="small"
-                  />
-                  <Button size="small">Learn More</Button>
+                  {/* displays raiting on card */}
+                  <Rating name="read-only" value={book.stars} readOnly size="small" />
+                  <Link to="/book" state={{ bookData: { ...book } }}>
+                    <Button size="small">Learn More</Button>
+                  </Link>
                 </CardActions>
               </Card>
             ))}
