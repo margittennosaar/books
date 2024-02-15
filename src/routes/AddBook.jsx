@@ -14,21 +14,8 @@ import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
 function AddBook() {
-  const axiosInstance= useAxios('http://localhost:3000');
-
-  useEffect(() => {
-    // Use the 'get' function to make a GET request
-    axiosInstance.get('/books')
-      .then(() => {
-        // Access the response data using axiosInstance.data
-        console.log('Data received:', axiosInstance.data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('Error:', error);
-      });
-  }, []); 
-  
+  const {alert, post}= useAxios('http://localhost:3000');
+  //book rating
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
@@ -38,7 +25,10 @@ function AddBook() {
     start: null,
     end: null,
     stars: null,
+    img: "https://media.istockphoto.com/id/949118068/photo/books.jpg?s=170667a&w=0&k=20&c=qU_DMsr0Lu-nk3Cv5Cm-K4wadNslfyTLyQQFtW34Sdw="
   });
+
+  console.log(book.img);
 
   const genreChangeHandler = (event) => {
     const { value } = event.target;
@@ -48,8 +38,10 @@ function AddBook() {
     });
   };
 
+  // Function to handle changes in the rating input
   const rateChangeHandler = (event) => {
     const { value } = event.target;
+      // Update the 'stars' property in the 'book' state with the new value
     setBook({
       ...book,
       stars: value,
@@ -65,9 +57,9 @@ function AddBook() {
     }
   };
 //fixed timeout
-  function postHandler(event) {
+  function postHandler(e) {
     post('books', book);
-    event.preventDefault();
+    e.preventDefault();
   }//to post data to an endpoint
  
 
