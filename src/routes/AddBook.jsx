@@ -64,9 +64,10 @@ function AddBook() {
       setBook({ ...book, [name]: value });
     }
   };
-
-  function postHandler() {
+//fixed timeout
+  function postHandler(event) {
     post('books', book);
+    event.preventDefault();
   }//to post data to an endpoint
  
 
