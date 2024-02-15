@@ -16,11 +16,15 @@ import {
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    if (books.length === 0) {
-      getBooks();
+    if (data.length === 0) {
+      get('books');
     }//if condition is met then get books function is called
+    const searchHandler = (e) => {
+      setSearch(e.target.value.toLowerCase())
+    }
   }, []);
 
   // TODO: Replace axios with useAxios hook
@@ -37,8 +41,8 @@ function Books() {
   // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
+      {loading && <CircularProgress />}
+      {!loading && (
         <div>
           <Stack
             sx={{ justifyContent: 'space-around' }}
@@ -47,7 +51,12 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {data
+  .filter((book) =>
+    book.name.toLowerCase().includes(search.toLowerCase()) ||
+    book.author.toLowerCase().includes(search.toLowerCase()))
+  .map((book) => (
+
               <Card
                 sx={{
                   display: 'flex',
@@ -61,6 +70,8 @@ function Books() {
                   sx={{ height: 250 }}
                   image={book.img}
                   title={book.name}
+                  component='img'
+
                 />
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {book.genres.map((genre, i) => (
@@ -87,11 +98,11 @@ function Books() {
                 >
                   <Rating
                     name="read-only"
-                    value={book.stars}
+                    value={Number(book.stars)}
                     readOnly
                     size="small"
                   />
-                  <Button size="small">Learn More</Button>
+                  <Button size="small" component={Link} to={`/${book.id}`}>Learn More</Button>
                 </CardActions>
               </Card>
             ))}
