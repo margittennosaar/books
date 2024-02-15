@@ -14,14 +14,17 @@ import {
 } from '@mui/material';
 
 function Books() {
+
+
   const booksUrl = 'http://localhost:3000';
   const { data, get, loading } = useAxios(booksUrl);
   
   useEffect(() => {
     if (data.length === 0 && !loading) {
       getBooks();
+
     }
-  }, [data, loading]);
+  }, []);
 
   function getBooks() {
     get(`books`).then(response => {
@@ -41,7 +44,12 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {data
+  .filter((book) =>
+    book.name.toLowerCase().includes(search.toLowerCase()) ||
+    book.author.toLowerCase().includes(search.toLowerCase()))
+  .map((book) => (
+
               <Card
                 sx={{
                   display: 'flex',
@@ -55,6 +63,8 @@ function Books() {
                   sx={{ height: 250 }}
                   image={book.img}
                   title={book.name}
+                  component='img'
+
                 />
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {book.genres.map((genre, i) => (
@@ -81,11 +91,11 @@ function Books() {
                 >
                   <Rating
                     name="read-only"
-                    value={book.stars}
+                    value={Number(book.stars)}
                     readOnly
                     size="small"
                   />
-                  <Button size="small">Learn More</Button>
+                  <Button size="small" component={Link} to={`/${book.id}`}>Learn More</Button>
                 </CardActions>
               </Card>
             ))}
