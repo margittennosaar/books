@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useAxios from '../services/useAxios';
 import {
   Box,
   Card,
@@ -14,31 +14,24 @@ import {
 } from '@mui/material';
 
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState('');
 
+
+  const booksUrl = 'http://localhost:3000';
+  const { data, get, loading } = useAxios(booksUrl);
+  
   useEffect(() => {
-    if (data.length === 0) {
-      get('books');
-    }//if condition is met then get books function is called
-    const searchHandler = (e) => {
-      setSearch(e.target.value.toLowerCase())
+    if (data.length === 0 && !loading) {
+      getBooks();
+
     }
   }, []);
 
-  // TODO: Replace axios with useAxios hook
-  async function getBooks() {
-    try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+  function getBooks() {
+    get(`books`).then(response => {
+      setBooks(response.data); // Assuming response is an array of books
+    });
   }
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
