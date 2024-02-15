@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-//import { books } from './books.json';
+import useAxios from '../services/useAxios'
+import { Link } from 'react-router-dom'
 import {
   Box,
   Card,
@@ -16,39 +16,19 @@ import {
 } from "@mui/material";
 
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-// const [searchQuery, setSearchQuery] = useState('');
-// const [filteredBooks, setFilteredBooks] = useState([]);
-// //search
-// const handleSearch = () => {
-//   const searchTerm = searchQuery.toLowerCase();
-//   const filteredResults = books.filter(
-//     (book) =>
-//       book.name.toLowerCase().includes(searchTerm) ||
-//       book.author.toLowerCase().includes(searchTerm)
-//   );
-//   setFilteredBooks(filteredResults);
-// };
-
+  const booksUrl = 'http://localhost:3000';
+  const { data, get, loading } = useAxios(booksUrl);
 
 
   useEffect(() => {
-    if (books.length === 0) {
+    if (data.length === 0) {
       getBooks();
     } //if condition is met then get books function is called
   }, []);
 
   // TODO: Replace axios with useAxios hook
-  async function getBooks() {
-    try {
-      const response = await axios.get("http://localhost:3000/books");
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+   function getBooks() {
+    get('books')
   }
 
   // TODO: Implement search functionality
@@ -77,8 +57,8 @@ function Books() {
       </Button>
 
       <Box sx={{ mx: "auto", p: 2 }}>
-        {isLoading && <CircularProgress />}
-        {!isLoading && (
+        {loading && <CircularProgress />}
+        {!loading && (
           <div>
             <Stack
               sx={{ justifyContent: "space-around" }}
@@ -87,7 +67,7 @@ function Books() {
               useFlexGap
               flexWrap="wrap"
             >
-              {books.map((book) => (
+              {data.map((book) => (
                 <Card
                   sx={{
                     display: "flex",

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,7 +14,21 @@ import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
 function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+  const axiosInstance= useAxios('http://localhost:3000');
+
+  useEffect(() => {
+    // Use the 'get' function to make a GET request
+    axiosInstance.get('/books')
+      .then(() => {
+        // Access the response data using axiosInstance.data
+        console.log('Data received:', axiosInstance.data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('Error:', error);
+      });
+  }, []); 
+  
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: '',
