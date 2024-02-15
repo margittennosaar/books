@@ -29,8 +29,8 @@ function AddBook() {
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
-      ...book,
-      genres: typeof value === 'string' ? value.split(',') : value,
+      ...book,//to select multiple genres
+      genres: typeof value === 'string' ? value.split(',') : value,//to split the genres using a comma
     });
   };
 
@@ -53,7 +53,7 @@ function AddBook() {
 
   function postHandler() {
     post('books', book);
-  }
+  }//to post data to an endpoint
 
   return (
     <form onChange={addBookHandler} onSubmit={postHandler}>
