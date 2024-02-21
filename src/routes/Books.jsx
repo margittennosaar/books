@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useAxios from '../services/useAxios';
 import {
   Box,
   Card,
@@ -15,9 +15,8 @@ import {
 
 // function Books function component is used to display the books from the database.
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const booksUrl = 'http://localhost:3000/books';
+  const { data: books, loading: isLoading, get } = useAxios(booksUrl);
 
   useEffect(() => {
     if (books.length === 0) {
@@ -26,20 +25,14 @@ function Books() {
   }, []);
 
   // TODO: Replace axios with useAxios hook
-  // async function getBooks function is used to get the books from the database, in case of error it will log the error to the console.
-  // If it is successful, it will set the books state and set the isLoading state to false.
 
-  async function getBooks() {
-    try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
+
+  function getBooks() {
+    get('books');
   }
 
   // TODO: Implement search functionality
+
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {isLoading && <CircularProgress />}

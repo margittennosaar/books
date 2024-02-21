@@ -3,7 +3,8 @@ import axios from 'axios';
 
 // useAxios function is a custom hook that is used to make requests to the server.
 const useAxios = (baseUrl) => {
-  const [data, setData] = useState(null);
+  //useState empty array for data state, empty object for alert state, and false for loading state.
+  const [data, setData] = useState([]);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const [loading, setLoading] = useState(false);
 
