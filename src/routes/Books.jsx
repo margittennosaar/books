@@ -13,9 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 
+// function Books function component is used to display the books from the database.
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     if (books.length === 0) {
@@ -24,6 +26,9 @@ function Books() {
   }, []);
 
   // TODO: Replace axios with useAxios hook
+  // async function getBooks function is used to get the books from the database, in case of error it will log the error to the console.
+  // If it is successful, it will set the books state and set the isLoading state to false.
+
   async function getBooks() {
     try {
       const response = await axios.get('http://localhost:3000/books');

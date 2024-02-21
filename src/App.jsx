@@ -7,6 +7,7 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
+// createTheme function is used to create a custom theme for the application.
 const theme = createTheme({
   palette: {
     primary: {
@@ -18,7 +19,9 @@ const theme = createTheme({
   },
 });
 
+// App function component is the root component of the application.
 function App() {
+  // createBrowserRouter function is used to create a router for the application.
   const router = createBrowserRouter([
     {
       path: '/',

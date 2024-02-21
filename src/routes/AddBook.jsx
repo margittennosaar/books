@@ -13,6 +13,7 @@ import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
+// Addbok function component is used to add a new book to the database.
 function AddBook() {
   const { alert, post } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
@@ -25,6 +26,7 @@ function AddBook() {
     end: null,
     stars: null,
   });
+  // genreChangeHandler function is used to handle the genre change event.
 
   const genreChangeHandler = (event) => {
     const { value } = event.target;
@@ -34,6 +36,7 @@ function AddBook() {
     });
   };
 
+  // rateChangeHandler function is used to handle the rating change event and set the stars value in the book state.
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -42,6 +45,7 @@ function AddBook() {
     });
   };
 
+  // addBookHandler function is used to handle the input change event and set the book state, checking if the input is a checkbox or not.
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
@@ -50,6 +54,8 @@ function AddBook() {
       setBook({ ...book, [name]: value });
     }
   };
+
+  // postHandler function is used to handle the form submit event and post the book to the database.
 
   function postHandler() {
     post('books', book);
