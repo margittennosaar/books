@@ -3,6 +3,7 @@ import { Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
 
 function Header() {
     return (
+        //the header box
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>

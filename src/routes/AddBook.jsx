@@ -14,45 +14,55 @@ import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
 function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+  // Custom hook for Axios-based API calls and alerts
+  const { alert, post } = useAxios('http://localhost:3001'); // Base URL for API
+
+  // State to manage the rating value
   const [rateValue, setRateValue] = useState(3);
+
+  // State to manage the book information
   const [book, setBook] = useState({
-    author: '',
-    name: '',
-    genres: [],
-    completed: false,
-    start: null,
-    end: null,
-    stars: null,
+    author: '', // Book author
+    name: '', // Book name/title
+    genres: [], // List of genres
+    completed: false, // Reading status
+    start: null, // Start date
+    end: null, // End date (if completed)
+    stars: null, // Star rating
   });
 
+  // Handler for genre selection change
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
       ...book,
-      genres: typeof value === 'string' ? value.split(',') : value,
+      genres: typeof value === 'string' ? value.split(',') : value, // Handle multiple selections
     });
   };
 
+  // Handler for rating change
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
       ...book,
-      stars: value,
+      stars: value, // Update the star rating in the state
     });
   };
 
+  // Handler for other input changes
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
-      setBook({ ...book, [name]: checked });
+      setBook({ ...book, [name]: checked }); // Update checkbox value
     } else {
-      setBook({ ...book, [name]: value });
+      setBook({ ...book, [name]: value }); // Update other fields
     }
   };
 
-  function postHandler() {
-    post('books', book);
+  // Handler to post the book data to the server
+  function postHandler(e) {
+    e.preventDefault(); // Prevent default form submission behavior
+    post('books', book); // Call the `post` function with the `books` endpoint and book data
   }
 
   return (
@@ -62,28 +72,39 @@ function AddBook() {
         alignItems="stretch"
         sx={{ my: 2, mx: 'auto', width: '25%' }}
       >
+        {/* Display an alert if there's a message */}
         {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+
+        {/* Page heading */}
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
+
+        {/* Input for book title */}
         <TextField
           name="name"
           id="outlined-basic"
           label="Title"
           variant="outlined"
         />
+
+        {/* Input for book author */}
         <TextField
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
         />
+
+        {/* Input for book image URL */}
         <TextField
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
         />
+
+        {/* Select input for genres */}
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -100,25 +121,31 @@ function AddBook() {
           ))}
         </Select>
 
+        {/* Checkbox for reading status */}
         <FormControlLabel
           name="completed"
           control={<Checkbox checked={book.completed} />}
           label="Completed"
         />
 
+        {/* Date fields for start and end dates */}
         <DateField name="start" label="Started" />
         <DateField name="end" label="Finished" disabled={!book.completed} />
+
+        {/* Star rating input */}
         <Stack spacing={1}>
           <Rating
             name="stars"
             value={rateValue}
-            onClick={rateChangeHandler}
             size="large"
             onChange={(event, newValue) => {
-              setRateValue(newValue);
+              setRateValue(newValue); // Update local state for rating
+              setBook({ ...book, stars: newValue }); // Update book state
             }}
           />
         </Stack>
+
+        {/* Button to submit the form */}
         <Button variant="contained" type="submit">
           Add new
         </Button>
