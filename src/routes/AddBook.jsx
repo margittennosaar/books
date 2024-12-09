@@ -13,9 +13,16 @@ import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
+/**
+ * A component for adding a new book.
+ * It uses MUI components for styling and layout.
+ */
 function AddBook() {
+  // Custom Axios hook for handling API requests and alert state.
   const { alert, post } = useAxios('http://localhost:3001');
-  const [rateValue, setRateValue] = useState(3);
+
+  // Local state to manage book details and rating value.
+  const [rateValue, setRateValue] = useState(3); // Default rating value.
   const [book, setBook] = useState({
     author: '',
     name: '',
@@ -26,6 +33,10 @@ function AddBook() {
     stars: null,
   });
 
+  /**
+   * Handles changes to the genres dropdown.
+   * Updates the `genres` array in the book state.
+   */
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -34,6 +45,10 @@ function AddBook() {
     });
   };
 
+  /**
+   * Handles changes to the star rating.
+   * Updates the `stars` property in the book state.
+   */
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -42,17 +57,27 @@ function AddBook() {
     });
   };
 
+  /**
+   * Handles changes to form fields.
+   * Updates the relevant properties in the book state.
+   */
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
+      // Update the `completed` state for the checkbox.
       setBook({ ...book, [name]: checked });
     } else {
+      // Update other fields.
       setBook({ ...book, [name]: value });
     }
   };
 
-  function postHandler() {
-    post('books', book);
+  /**
+   * Handles form submission by posting the book data.
+   */
+  function postHandler(e) {
+    e.preventDefault(); // Prevent default form submission behavior.
+    post('books', book); // Send book data to the API.
   }
 
   return (
@@ -62,28 +87,39 @@ function AddBook() {
         alignItems="stretch"
         sx={{ my: 2, mx: 'auto', width: '25%' }}
       >
+        {/* Display an alert if there is a message to show. */}
         {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+        
+        {/* Header */}
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
+        
+        {/* Title input */}
         <TextField
           name="name"
           id="outlined-basic"
           label="Title"
           variant="outlined"
         />
+
+        {/* Author input */}
         <TextField
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
         />
+
+        {/* Image URL input */}
         <TextField
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
         />
+
+        {/* Genre selection */}
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -100,25 +136,33 @@ function AddBook() {
           ))}
         </Select>
 
+        {/* Completed checkbox */}
         <FormControlLabel
           name="completed"
           control={<Checkbox checked={book.completed} />}
           label="Completed"
         />
 
+        {/* Start date input */}
         <DateField name="start" label="Started" />
+
+        {/* End date input (disabled if the book isn't completed) */}
         <DateField name="end" label="Finished" disabled={!book.completed} />
+
+        {/* Rating component */}
         <Stack spacing={1}>
           <Rating
             name="stars"
             value={rateValue}
-            onClick={rateChangeHandler}
             size="large"
+            onClick={rateChangeHandler}
             onChange={(event, newValue) => {
               setRateValue(newValue);
             }}
           />
         </Stack>
+
+        {/* Submit button */}
         <Button variant="contained" type="submit">
           Add new
         </Button>
