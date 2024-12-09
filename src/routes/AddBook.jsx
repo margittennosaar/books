@@ -110,6 +110,7 @@ function AddBook() {
         <DateField name="end" label="Finished" disabled={!book.completed} />
         <Stack spacing={1}>
           <Rating
+            sx={{width: 'fit-content'}}
             name="stars"
             value={rateValue}
             onClick={rateChangeHandler}
