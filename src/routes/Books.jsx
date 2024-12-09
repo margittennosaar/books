@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useAxios from '../services/useAxios';
 import {
   Box,
   Card,
@@ -17,24 +17,24 @@ import {
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { get, data,alert} = useAxios('http://localhost:3000');
 
-  useEffect(() => {
-    if (books.length === 0) {
-      getBooks();
-    }
-  }, []);
+useEffect(() => {
 
-  // TODO: Replace axios with useAxios hook
-  // Trying to get books from the server
-  async function getBooks() {
+  const fetchBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
+      await get('books',"a message");
+      setBooks(data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching books:", error);
+    } finally {
+      setIsLoading(false); // Ensure loading state is updated
     }
-  }
+  };
+
+  fetchBooks();
+}, []);
+
 
   // TODO: Implement search functionality
   return (
@@ -50,7 +50,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >{/* Mapping books to card component */}
-            {books.map((book) => (
+            {data.map((book) => (
               <Card
                 sx={{
                   display: 'flex',
