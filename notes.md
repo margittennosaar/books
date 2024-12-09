@@ -5,6 +5,7 @@ Steps:
 - Forked and copied remote repository
 - installed dependencies
 
-WAS: 
-`"server": "json-server -p3000 --watch books.json"`
-"server": "json-server --watch db.json --port 3001"
+Fixes:
+
+- Error due to stars passed as string not a number. Added parseFloat
+- Error on image. Fixed link (took different one).

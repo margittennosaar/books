@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Box,
   Card,
@@ -11,22 +11,25 @@ import {
   Rating,
   Chip,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
+// Books func to handle books data fetching and render books
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // useEffect hook, which is called once to get books.
   useEffect(() => {
+    // checking if books array is empty and if so, getBooks is called.
     if (books.length === 0) {
       getBooks();
     }
-  }, []);
+  }, []); // Runs once on mount
 
   // TODO: Replace axios with useAxios hook
   async function getBooks() {
     try {
-      const response = await axios.get('http://localhost:3000/books');
+      const response = await axios.get("http://localhost:3000/books");
       setBooks(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -36,12 +39,12 @@ function Books() {
 
   // TODO: Implement search functionality
   return (
-    <Box sx={{ mx: 'auto', p: 2 }}>
+    <Box sx={{ mx: "auto", p: 2 }}>
       {isLoading && <CircularProgress />}
       {!isLoading && (
         <div>
           <Stack
-            sx={{ justifyContent: 'space-around' }}
+            sx={{ justifyContent: "space-around" }}
             spacing={{ xs: 1 }}
             direction="row"
             useFlexGap
@@ -50,9 +53,9 @@ function Books() {
             {books.map((book) => (
               <Card
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  width: '15%',
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "15%",
                   minWidth: 200,
                 }}
                 key={book.name}
@@ -80,14 +83,14 @@ function Books() {
                 </Box>
                 <CardActions
                   sx={{
-                    justifyContent: 'space-between',
-                    mt: 'auto',
+                    justifyContent: "space-between",
+                    mt: "auto",
                     pl: 2,
                   }}
                 >
                   <Rating
                     name="read-only"
-                    value={book.stars}
+                    value={parseFloat(book.stars)} //Expected a number
                     readOnly
                     size="small"
                   />
