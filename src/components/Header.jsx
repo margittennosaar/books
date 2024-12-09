@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Button, Box, AppBar, Toolbar, Typography } from '@mui/material';
 
+//making of header component with material UI that comprises of small components like Box, AppBar and Toolbox to mark the confines of the area to work in. Typography for text and Buttons as buttons
+
 function Header() {
     return (
         <Box sx={{ flexGrow: 1 }}>
