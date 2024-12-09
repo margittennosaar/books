@@ -6,12 +6,14 @@ const useAxios = (baseUrl) => {
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const [loading, setLoading] = useState(false);
 
+  // Showing alert message
   const showAlert = (message, type) => {
     setAlert({ show: true, message, type });
     setTimeout(() => {
       setAlert((currentAlert) => ({ ...currentAlert, show: false }));
     }, 5000);
   };
+
 
   const makeRequest = async (method, endpoint, payload = null) => {
     try {
