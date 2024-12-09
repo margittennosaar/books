@@ -12,13 +12,14 @@ import {
   Chip,
   Typography,
 } from '@mui/material';
+import useAxios from '../services/useAxios';
 
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const apiUrl = 'http://localhost:3000'
+  const {data, loading, error, get} = useAxios(apiUrl)
 
   useEffect(() => {
-    if (books.length === 0) {
+    if (data.length === 0) {
       getBooks();
     }
   }, []);
@@ -26,9 +27,7 @@ function Books() {
   // TODO: Replace axios with useAxios hook
   async function getBooks() {
     try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data);
-      setIsLoading(false);
+      await get('books')
     } catch (error) {
       console.error(error);
     }
@@ -37,8 +36,8 @@ function Books() {
   // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
-      {isLoading && <CircularProgress />}
-      {!isLoading && (
+      {loading && <CircularProgress />}
+      {!loading && (
         <div>
           <Stack
             sx={{ justifyContent: 'space-around' }}
@@ -47,7 +46,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {data?.map((book) => (
               <Card
                 sx={{
                   display: 'flex',

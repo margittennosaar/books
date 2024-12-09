@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const useAxios = (baseUrl) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [alert, setAlert] = useState({ show: false, message: '', type: '' });
   const [loading, setLoading] = useState(false);
 
@@ -18,6 +18,7 @@ const useAxios = (baseUrl) => {
       setLoading(true);
       const response = await axios[method](`${baseUrl}/${endpoint}`, payload);
       setData(response.data);
+      console.log(response.data)
       showAlert('Book added successfully', 'success');
     } catch (err) {
       showAlert(`Error: ${err.message}`, 'error');
