@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {
+import { useEffect, useState } from 'react'; 
+import axios from 'axios'; 
+import {  
   Box,
   Card,
   CardActions,
@@ -13,11 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 
-function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+function Books() {  //define a function for books
+  const [books, setBooks] = useState([]);  //used useState to set the books
+  const [isLoading, setIsLoading] = useState(true);  //used useState to set the loading state
 
-  useEffect(() => {
+  useEffect(() => {  //used useEffect to get the books, if the books are empty then get the books
     if (books.length === 0) {
       getBooks();
     }
