@@ -7,6 +7,7 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
+// Creating a theme for Material-UI
 const theme = createTheme({
   palette: {
     primary: {
@@ -17,7 +18,7 @@ const theme = createTheme({
     },
   },
 });
-
+// App component that renders the RouterProvider component
 function App() {
   const router = createBrowserRouter([
     {
@@ -30,7 +31,7 @@ function App() {
       ],
     },
   ]);
-
+// Wrapping the RouterProvider component with ThemeProvider and LocalizationProvider
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
