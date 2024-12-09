@@ -9,8 +9,6 @@ import {
 } from '@mui/material';
 
 function Book() {
-
-
     return (
         <Card
             sx={{
@@ -35,10 +33,17 @@ function Book() {
                         size='small'
                     />
                 ))}
-                <Typography variant='h6' component='h2' sx={{ mt: 2 }}>
+                <Typography
+                    variant='h6'
+                    component='h2'
+                    sx={{ mt: 2 }}
+                >
                     {book.name}
                 </Typography>
-                <Typography variant='subtitle1' gutterBottom>
+                <Typography
+                    variant='subtitle1'
+                    gutterBottom
+                >
                     {book.author}
                 </Typography>
             </Box>

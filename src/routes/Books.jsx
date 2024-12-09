@@ -23,6 +23,16 @@ function Books() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getBooks = async () => {
+            try {
+                const response = await get('books');
+                console.log(response); // Log response for debugging
+                setBooks(response); // Update state with fetched books
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        };
+
         if (data.length === 0) {
             getBooks();
         }
@@ -30,14 +40,23 @@ function Books() {
 
     useMemo(() => {
         if (searchTerm) {
-
             const filteredBooks = [];
             filteredBooks.push(
-                data.filter((item) => item?.author?.includes(searchTerm))
-            , data.filter((item) => item?.name?.includes(searchTerm)))
-            // add genre filter 
-
+                data.filter(
+                    (item) =>
+                        item.author.includes(searchTerm) ||
+                        item.name.includes(searchTerm) ||
+                        item.genres.some((genre) =>
+                            genre
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())
+                        )
+                )
+            );
             console.log(filteredBooks);
+            setBooks(filteredBooks.flat());
+        } else {
+            setBooks(data);
         }
     }, [searchTerm]);
 
@@ -46,16 +65,6 @@ function Books() {
         setSearchTerm(value);
     };
 
-    // TODO: Replace axios with useAxios hook
-    async function getBooks() {
-        try {
-            await get('books');
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    // TODO: Implement search functionality
     return (
         <Box sx={{ mx: 'auto', p: 2 }}>
             {loading && <CircularProgress />}
@@ -76,7 +85,7 @@ function Books() {
                             onChange={handleChange}
                         />
 
-                        {data?.map((book) => (
+                        {books?.map((book) => (
                             <Card
                                 sx={{
                                     display: 'flex',
