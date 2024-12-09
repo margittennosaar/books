@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //custom hook to make requests to the server via axios. It takes the URL as an argument and returns an object with data, alert, loading, get, post, update, and remove properties
 const useAxios = (baseUrl) => {
-  const [data, setData] = useState(null); //data is the response from the server, null by default 
+  const [data, setData] = useState([]); //data is the response from the server, [] by default 
   const [alert, setAlert] = useState({ show: false, message: '', type: '' }); //alert is an object with show, message, and type properties, initially set to false, empty string, and empty string
   const [loading, setLoading] = useState(false);
 
