@@ -10,6 +10,8 @@ import {
   Rating,
   Chip,
   Typography,
+  TextField,
+  Autocomplete
 } from '@mui/material';
 import useAxios from '../services/useAxios';
 
@@ -30,12 +32,40 @@ function Books() {
     await get('books');
   }
 
+  const genres = [...new Set(books.flatMap((book) => book.genres))];
+
   // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
       {!loading && (
         <div>
+          <Stack spacing={2} sx={{ width: 300 }}>
+            <Autocomplete
+              id="free-solo-demo"
+              freeSolo
+              options={books.map((option) => option.name)}
+              renderInput={(params) => 
+                <TextField {...params} label="book name" />}
+            />
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={books.map((option) => option.author)}
+              renderInput={(params) => 
+                <TextField {...params} label="Author"/>}
+            />
+            <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={genres}
+                renderInput={(params) => 
+                  <TextField {...params} label="Genre"/>}
+            />
+          </Stack>
+
           <Stack
             sx={{ justifyContent: 'space-around' }}
             spacing={{ xs: 1 }}
