@@ -26,8 +26,7 @@ function Books() {
         const getBooks = async () => {
             try {
                 const response = await get('books');
-                console.log(response); // Log response for debugging
-                setBooks(response); // Update state with fetched books
+                setBooks(response);
             } catch (error) {
                 console.error('Error fetching books:', error);
             }
@@ -53,7 +52,6 @@ function Books() {
                         )
                 )
             );
-            console.log(filteredBooks);
             setBooks(filteredBooks.flat());
         } else {
             setBooks(data);
