@@ -7,7 +7,8 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
-const theme = createTheme({
+//create custom theme with priary and secondary colors
+const theme = createTheme({ 
   palette: {
     primary: {
       main: '#004d40',
@@ -18,6 +19,7 @@ const theme = createTheme({
   },
 });
 
+//create router with routes with 3 routes: Books as '/books' and '/'; Book as /book; AddBook as /addnew
 function App() {
   const router = createBrowserRouter([
     {

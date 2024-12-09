@@ -13,6 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 
+
+//component renders a list of books with their details
+
+
+//reranders a list of books with their details on change of books
 function Books() {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,6 +28,7 @@ function Books() {
     }
   }, []);
 
+  //function to get books from the server
   // TODO: Replace axios with useAxios hook
   async function getBooks() {
     try {

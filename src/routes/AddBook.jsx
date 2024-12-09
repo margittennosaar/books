@@ -13,6 +13,9 @@ import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
+//component renders a form to add a new book
+
+// adds a new book to the database
 function AddBook() {
   const { alert, post } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
@@ -26,6 +29,7 @@ function AddBook() {
     stars: null,
   });
 
+  // function to handle the change of the genre field
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -34,6 +38,7 @@ function AddBook() {
     });
   };
 
+  // function to handle the change of the rating field
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -42,6 +47,7 @@ function AddBook() {
     });
   };
 
+  // function to handle the change of the input fields in the form and set book state
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
@@ -51,6 +57,7 @@ function AddBook() {
     }
   };
 
+  // function to add the new book to our "server" by post request
   function postHandler() {
     post('books', book);
   }
