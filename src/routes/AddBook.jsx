@@ -12,8 +12,9 @@ import { DateField } from '@mui/x-date-pickers/DateField';
 import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
-
+/* Function to add a new book */
 function AddBook() {
+  /* using post with useAxios */
   const { alert, post } = useAxios('http://localhost:3001');
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
@@ -25,7 +26,7 @@ function AddBook() {
     end: null,
     stars: null,
   });
-
+/* Updates the genres field in the book state when the genre selection changes */
   const genreChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -33,7 +34,7 @@ function AddBook() {
       genres: typeof value === 'string' ? value.split(',') : value,
     });
   };
-
+/* Updates the stars when book state changes */
   const rateChangeHandler = (event) => {
     const { value } = event.target;
     setBook({
@@ -41,7 +42,7 @@ function AddBook() {
       stars: value,
     });
   };
-
+/* Updates the book state for other form fields. Handles both checkbox and other input types. */
   const addBookHandler = (e) => {
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
@@ -50,7 +51,7 @@ function AddBook() {
       setBook({ ...book, [name]: value });
     }
   };
-
+/* Submits the form by making a POST request to the books endpoint with the current book state.*/
   function postHandler() {
     post('books', book);
   }
@@ -66,24 +67,28 @@ function AddBook() {
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
+        {/* Title textfield */}
         <TextField
           name="name"
           id="outlined-basic"
           label="Title"
           variant="outlined"
         />
+        {/* Author Textfield */}
         <TextField
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
         />
+        {/* Image Textfield */}
         <TextField
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
         />
+        {/* Genre Select */}
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -93,22 +98,24 @@ function AddBook() {
           onChange={genreChangeHandler}
           input={<OutlinedInput label="Genre" />}
         >
+          {/* Mapping book genres to menu*/}
           {bookGenres.map((name) => (
             <MenuItem key={name} value={name}>
               {name}
             </MenuItem>
           ))}
         </Select>
-
+        {/* Completed checkbox */}
         <FormControlLabel
           name="completed"
           control={<Checkbox checked={book.completed} />}
           label="Completed"
         />
-
+{/* Started and ended inputs */}
         <DateField name="start" label="Started" />
         <DateField name="end" label="Finished" disabled={!book.completed} />
         <Stack spacing={1}>
+          {/* Star ratings */}
           <Rating
             name="stars"
             value={rateValue}

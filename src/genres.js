@@ -1,3 +1,4 @@
+// Exporting list of book genres
 export const bookGenres = [
   'Fiction',
   'Mystery',
