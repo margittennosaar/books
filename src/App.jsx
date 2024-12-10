@@ -8,36 +8,36 @@ import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#004d40',
+    palette: {
+        primary: {
+            main: '#004d40',
+        },
+        secondary: {
+            main: '#ffab40',
+        },
     },
-    secondary: {
-      main: '#ffab40',
-    },
-  },
 });
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Root />,
-      children: [
-        { path: '/', element: <Books /> },
-        { path: '/book', element: <Book /> },
-        { path: '/addnew', element: <AddBook /> },
-      ],
-    },
-  ]);
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <Root />,
+            children: [
+                { path: '/', element: <Books /> },
+                { path: '/book/:id', element: <Book /> },
+                { path: '/addnew', element: <AddBook /> },
+            ],
+        },
+    ]);
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router}></RouterProvider>
-      </ThemeProvider>
-    </LocalizationProvider>
-  );
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ThemeProvider theme={theme}>
+                <RouterProvider router={router}></RouterProvider>
+            </ThemeProvider>
+        </LocalizationProvider>
+    );
 }
 
 export default App;

@@ -35,6 +35,7 @@ const useAxios = (baseUrl) => {
     const update = async (endpoint, payload) =>
         makeRequest('put', endpoint, payload);
     const remove = async (endpoint) => makeRequest('delete', endpoint);
+    const patch = async (endpoint, payload) => makeRequest('patch', payload);
 
     return { data, alert, loading, get, post, update, remove };
 };

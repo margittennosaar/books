@@ -94,10 +94,20 @@ function Books() {
                                 key={book.name}
                             >
                                 <CardMedia
-                                    sx={{ height: 250 }}
-                                    image={book.img}
+                                    sx={{
+                                        height: 250,
+                                    }}
+                                    image={`https://placehold.co/250x250/004c3f/FFFFFF/?text=${book.name}`}
                                     title={book.name}
-                                />
+                                >
+                                    <CardMedia
+                                        sx={{
+                                            height: 250,
+                                        }}
+                                        image={book.img}
+                                        title={book.name}
+                                    ></CardMedia>
+                                </CardMedia>
                                 <Box sx={{ pt: 2, pl: 2 }}>
                                     {book.genres.map((genre, i) => (
                                         <Chip
