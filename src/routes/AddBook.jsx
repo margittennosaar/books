@@ -13,10 +13,10 @@ import useAxios from '../services/useAxios';
 import { bookGenres } from '../genres';
 import { Stack, Typography } from '@mui/material';
 
-function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
-  const [rateValue, setRateValue] = useState(3);
-  const [book, setBook] = useState({
+function AddBook() {  //define a function for adding a book
+  const { alert, post } = useAxios('http://localhost:3001');  //use the useAxios hook to get the alert and post
+  const [rateValue, setRateValue] = useState(3); //used useState to set the rate value
+  const [book, setBook] = useState({  //used useState to set the details of the book
     author: '',
     name: '',
     genres: [],
@@ -26,7 +26,7 @@ function AddBook() {
     stars: null,
   });
 
-  const genreChangeHandler = (event) => {
+  const genreChangeHandler = (event) => {  // define a function for splitting the genres
     const { value } = event.target;
     setBook({
       ...book,
@@ -34,7 +34,7 @@ function AddBook() {
     });
   };
 
-  const rateChangeHandler = (event) => {
+  const rateChangeHandler = (event) => {  //define a function for rating the book
     const { value } = event.target;
     setBook({
       ...book,
@@ -42,7 +42,7 @@ function AddBook() {
     });
   };
 
-  const addBookHandler = (e) => {
+  const addBookHandler = (e) => {  // define a function for checking if the name is completed then chekbox sholud be clicked
     const { name, value, checked, type } = e.target;
     if (type === 'checkbox' && name === 'completed') {
       setBook({ ...book, [name]: checked });
@@ -57,34 +57,34 @@ function AddBook() {
 
   return (
     <form onChange={addBookHandler} onSubmit={postHandler}>
-      <Stack
+      <Stack //used stack to set the spacing and alignment of the form
         spacing={1}
         alignItems="stretch"
         sx={{ my: 2, mx: 'auto', width: '25%' }}
       >
-        {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
-        <Typography variant="h4" component="h2" sx={{ my: 10 }}>
+        {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}   {/* used alert to show the message */}
+        <Typography variant="h4" component="h2" sx={{ my: 10 }}>  {/*  header of the form */}
           Add a book
         </Typography>
-        <TextField
+        <TextField  //textfield for the title of the book
           name="name"
           id="outlined-basic"
           label="Title"
           variant="outlined"
         />
-        <TextField
+        <TextField  //textfield for the author of the book
           name="author"
           id="outlined-basic"
           label="Author"
           variant="outlined"
         />
-        <TextField
+        <TextField  //textfield for the image of the book
           name="img"
           id="outlined-basic"
           label="Image (url)"
           variant="outlined"
         />
-        <Select
+        <Select //select for the genres of the book
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
@@ -100,16 +100,16 @@ function AddBook() {
           ))}
         </Select>
 
-        <FormControlLabel
+        <FormControlLabel  //checkbox for the completion of the book
           name="completed"
           control={<Checkbox checked={book.completed} />}
           label="Completed"
         />
 
-        <DateField name="start" label="Started" />
-        <DateField name="end" label="Finished" disabled={!book.completed} />
+        <DateField name="start" label="Started" />  {/* datefield for the start date of the book */}
+        <DateField name="end" label="Finished" disabled={!book.completed} /> {/* datefield for the end date of the book */}
         <Stack spacing={1}>
-          <Rating
+          <Rating  //rating for the book
             name="stars"
             value={rateValue}
             onClick={rateChangeHandler}
@@ -119,7 +119,7 @@ function AddBook() {
             }}
           />
         </Stack>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit"> {/* button for adding a new book */}
           Add new
         </Button>
       </Stack>

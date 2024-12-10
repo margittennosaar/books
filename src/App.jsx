@@ -7,7 +7,7 @@ import Books from './routes/Books';
 import Book from './routes/Book';
 import AddBook from './routes/AddBook';
 
-const theme = createTheme({
+const theme = createTheme({  // creating a theme for the app
   palette: {
     primary: {
       main: '#004d40',
@@ -18,13 +18,13 @@ const theme = createTheme({
   },
 });
 
-function App() {
-  const router = createBrowserRouter([
+function App() {  
+  const router = createBrowserRouter([  //creating a router for the app
     {
       path: '/',
-      element: <Root />,
+      element: <Root />,  
       children: [
-        { path: '/', element: <Books /> },
+        { path: '/', element: <Books /> }, 
         { path: '/book', element: <Book /> },
         { path: '/addnew', element: <AddBook /> },
       ],
@@ -32,9 +32,9 @@ function App() {
   ]);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <ThemeProvider theme={theme}>
-        <RouterProvider router={router}></RouterProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>  {/* used the localization provider to set the date adapter */}
+      <ThemeProvider theme={theme}>   {/* used the theme provider to set the theme */}
+        <RouterProvider router={router}></RouterProvider> {/* used the router provider to set the router */}
       </ThemeProvider>
     </LocalizationProvider>
   );
