@@ -1,57 +1,47 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import {
-  Box,
-  Card,
-  CardActions,
-  CardMedia,
-  Button,
-  CircularProgress,
-  Stack,
-  Rating,
-  Chip,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardActions, CardMedia, Button, CircularProgress, Stack, Rating, Chip, Typography, Alert } from '@mui/material';
+import useAxios from '../services/useAxios';
 
 function Books() {
+  // Initialize useAxios with the base API URL.
+  const { data, loading, alert, get } = useAxios('http://localhost:3000');
+
   // State to store the list of books fetched from the API.
   const [books, setBooks] = useState([]);
 
-  // State to track whether data is currently being loaded.
-  const [isLoading, setIsLoading] = useState(true);
 
   // useEffect to trigger data fetching when the component is mounted.
   useEffect(() => {
     if (books.length === 0) {
-      getBooks(); // Fetch books if the list is empty.
+      fetchBooks(); // Fetch books if the list is empty.
     }
   }, []);
 
   /**
-   * Fetches the list of books from the API using Axios.
-   * Updates the books state and stops the loading spinner.
+   * Fetches the list of books using the useAxios hook.
+   * Updates the local books state with the fetched data.
    */
-  // TODO: Replace axios with useAxios hook to utilize shared request logic.
-  async function getBooks() {
-    try {
-      const response = await axios.get('http://localhost:3000/books');
-      setBooks(response.data); // Set the fetched books in state.
-      setIsLoading(false); // Indicate that loading is complete.
-    } catch (error) {
-      console.error(error); // Log any errors to the console.
+  const fetchBooks = async () => {
+    await get('books'); // Fetch data using useAxios.
+  };
+
+  // Sync the useAxios data with the local state when it changes.
+  useEffect(() => {
+    if (data) {
+      setBooks(data); // Update local books state with fetched data.
     }
-  }
-
-
-  // TODO: Implement search functionality to filter books by name or genre.
+  }, [data]);
 
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
+      {/* Show alert messages if present. */}
+       {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+
       {/* Show a loading spinner while data is being fetched. */}
-      {isLoading && <CircularProgress />}
+      {loading && <CircularProgress sx={{margin: "50vh"}}/>}
 
       {/* Render the books list once data has been loaded. */}
-      {!isLoading && (
+      {!loading && (
         <div>
           {/* Stack to organize book cards in a responsive layout. */}
           <Stack
@@ -116,7 +106,7 @@ function Books() {
                     readOnly
                     size="small"
                   />
-                  
+
                   {/* Placeholder button for future detailed view functionality */}
                   <Button size="small">Learn More</Button>
                 </CardActions>

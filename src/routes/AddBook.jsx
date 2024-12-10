@@ -19,7 +19,7 @@ import { Stack, Typography } from '@mui/material';
  */
 function AddBook() {
   // Custom Axios hook for handling API requests and alert state.
-  const { alert, post } = useAxios('http://localhost:3001');
+  const { alert, post } = useAxios('http://localhost:3000');
 
   // Local state to manage book details and rating value.
   const [rateValue, setRateValue] = useState(3); // Default rating value.
