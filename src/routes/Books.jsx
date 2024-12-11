@@ -27,7 +27,7 @@ function Books() {
     get("books");
   }, []);
 
-  // Update filtered books whenever the original books or search query changes
+  // Update filtered books according to the search queries (book title, author or genres)
   useEffect(() => {
     if (books) {
       const lowerCaseSearch = search.toLowerCase();
