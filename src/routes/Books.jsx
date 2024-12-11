@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react";
 // import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import useAxios from "axios-hooks";
 import {
   Box,
@@ -21,10 +22,7 @@ function Books() {
   );
 
   // TODO: Implement search functionality
-  <div className="input-wrapper">
-    <input placeholder="Type to search..." />
-    <p>Hello</p>
-  </div>;
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
@@ -83,7 +81,12 @@ function Books() {
                     readOnly
                     size="small"
                   />
-                  <Button size="small">Learn More</Button>
+                  <Button
+                    size="small"
+                    onClick={() => navigate(`/book/${book.id}`)}
+                  >
+                    Learn More
+                  </Button>
                 </CardActions>
               </Card>
             ))}
