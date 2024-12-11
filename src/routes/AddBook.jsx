@@ -117,9 +117,10 @@ function AddBook() {
         <DateField name="end" label="Finished" disabled={!book.completed} />
         <Stack spacing={1} direction="row" >
           <Rating
-            name="half-rating"
+            name="stars"
             precision={0.5}
             defaultValue={1}
+            value={rateValue}
             onClick={rateChangeHandler}
             size="large"
             onChange={(event, newValue) => {
