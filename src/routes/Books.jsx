@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useAxios from "../services/useAxios";
-import axios from "axios";
 import {
   Box,
   Card,
@@ -13,33 +12,64 @@ import {
   Chip,
   Typography,
 } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
+  const [search, setSearch] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
     get("books");
   }, []);
 
-  /* This function fetches the book from the json server. */
-  // TODO: Replace axios with useAxios hook
-  /*   async function getBooks() {
-    try {
-      const response = await axios.get("http://localhost:3000/books");
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
+  // Update filtered books whenever the original books or search query changes
+  useEffect(() => {
+    if (books) {
+      const lowerCaseSearch = search.toLowerCase();
+      const result = books.filter(
+        (book) =>
+          book.name.toLowerCase().includes(lowerCaseSearch) ||
+          book.author.toLowerCase().includes(lowerCaseSearch) ||
+          book.genres.some((genre) =>
+            genre.toLowerCase().includes(lowerCaseSearch)
+          )
+      );
+      setFilteredBooks(result);
     }
-  }
- */
+  }, [books, search]);
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
+      <Paper
+        component="form"
+        sx={{
+          p: "2px 4px",
+          display: "flex",
+          alignItems: "center",
+          width: 400,
+          mb: 5,
+          mx: "auto",
+        }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="Search"
+          inputProps={{ "aria-label": "search" }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+
       {loading && <CircularProgress />}
-      {!loading && books && (
+      {!loading && filteredBooks && (
         <div>
           <Stack
             sx={{ justifyContent: "space-around" }}
@@ -48,8 +78,8 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {/* Mapping through the books to show it in the card. */}
-            {books.map((book) => (
+            {/* Mapping through the filteredBooks to show it in the card. */}
+            {filteredBooks.map((book) => (
               <Card
                 sx={{
                   display: "flex",

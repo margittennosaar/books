@@ -32,7 +32,17 @@ const useAxios = (baseUrl) => {
     makeRequest("put", endpoint, payload);
   const remove = async (endpoint) => makeRequest("delete", endpoint);
 
-  return { data, alert, loading, get, post, update, remove };
+  return {
+    data,
+    alert,
+    loading,
+    get,
+    post,
+    update,
+    remove,
+    showAlert,
+    makeRequest,
+  };
 };
 
 export default useAxios;

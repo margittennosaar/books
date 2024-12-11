@@ -15,7 +15,7 @@ import { Stack, Typography } from "@mui/material";
 
 /* To add new books to the books.json */
 function AddBook() {
-  const { alert, post } = useAxios("http://localhost:3001");
+  const { alert, post } = useAxios("http://localhost:3000");
   const [rateValue, setRateValue] = useState(3);
   const [book, setBook] = useState({
     author: "",
