@@ -17,7 +17,7 @@ import { Stack, Typography } from '@mui/material';
 
 // adds a new book to the database
 function AddBook() {
-  const { alert, post } = useAxios('http://localhost:3001');
+  const { alert, post } = useAxios('http://localhost:3000');
   const [rateValue, setRateValue] = useState(1);
   const [book, setBook] = useState({
     author: '',
@@ -58,8 +58,10 @@ function AddBook() {
   };
 
   // function to add the new book to our "server" by post request
-  function postHandler() {
-    post('books', book);
+  const postHandler = async (e) => {
+    e.preventDefault();
+    await post('books', book);
+    showAlert();
   }
 
   return (
