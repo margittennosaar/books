@@ -16,7 +16,6 @@ import {
 import useAxios from '../services/useAxios';
 
 //component renders a list of books with their details
-
 //reranders a list of books with their details on change of books
 function Books() {
   const {data:books=[], alert, loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
