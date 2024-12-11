@@ -10,19 +10,26 @@ import {
   Rating,
   Chip,
   Typography,
+  TextField,
+  Autocomplete
 } from '@mui/material';
 import useAxios from '../services/useAxios';
 
 //component renders a list of books with their details
-
-
 //reranders a list of books with their details on change of books
 function Books() {
-  const {data:books, alert, loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
+  const {data:books=[], alert, loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [filterName, setName] = useState('');
+  const [filterAuthor, setAuthor] = useState('');
+  const [filterGenre, setGenre] = useState('');
 
+  //get and render initial [books] list and rerander on every change of [books] (filter apply)
   useEffect(() => {
     if (books.length === 0) {
       getBooks();
+    } else {
+      setFilteredBooks(books);
     }
   }, [books]);
 
@@ -30,12 +37,76 @@ function Books() {
     await get('books');
   }
 
-  // TODO: Implement search functionality
+  //rerander [books] on every change of input
+  useEffect(() => {
+    filterBooks();
+  }, [filterName, filterAuthor, filterGenre]);
+
+  const filterBooks = () => {
+    let filtered = books;//get all books
+    if (filterName) {
+      filtered = filtered.filter(book=>book.name.toLowerCase().includes(filterName.toLowerCase()));
+    }
+    if (filterAuthor) {
+      filtered = filtered.filter(book=>book.author.toLowerCase().includes(filterAuthor.toLowerCase()));
+    }
+    if (filterGenre) {
+      filtered = filtered.filter(book=>book.genres.join(' ,').toLowerCase().includes(filterGenre.toLowerCase()));
+    }
+    setFilteredBooks(filtered);
+  };
+
+  const genres = [...new Set(books.flatMap((book) => book.genres))];//get a set of all genres used in 'db'
+
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
       {!loading && (
         <div>
+          <Stack direction="row" spacing={8} sx={{ justifyContent: "center", alignItems: "center", width: '100%' , height: 80}}>
+            <Autocomplete
+              id="free-solo-demo"
+              freeSolo
+              options={books.map((option) => option.name)}
+              renderInput={(params) => 
+                <TextField 
+                  {...params}
+                  label="book name"
+                  value={filterName}
+                  onChange={(e)=>setName(e.target.value)}
+                />}
+              sx={{ width: '25%' }}
+            />
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={books.map((option) => option.author)}
+              sx={{ width: '25%' }}
+              renderInput={(params) => 
+                <TextField
+                  {...params}
+                  label="Author"
+                  value={filterAuthor}
+                  onChange={(e)=>setAuthor(e.target.value)}
+                />}
+            />
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={genres}
+              sx={{ width: '25%' }}
+              renderInput={(params) =>
+                <TextField
+                  {...params}
+                  label="Genre"
+                  value={filterGenre}
+                  onChange={(e)=>setGenre(e.target.value)}
+                />}
+            />
+          </Stack>
+
           <Stack
             sx={{ justifyContent: 'space-around' }}
             spacing={{ xs: 1 }}
@@ -43,7 +114,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {filteredBooks.map((book) => (
               <Card
                 sx={{
                   display: 'flex',
