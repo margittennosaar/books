@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useAxios from "../services/useAxios";
-import axios from "axios";
 import {
   Box,
   Card,
@@ -12,32 +11,27 @@ import {
   Rating,
   Chip,
   Typography,
+  TextField,
 } from "@mui/material";
 
 function Books() {
   const { data: books, loading, get } = useAxios("http://localhost:3000");
+  const [searchResult, setSearchResult] = useState();
 
   /* This function will call the getBooks function if there aren't any books displayed to the UI. */
   useEffect(() => {
     get("books");
   }, []);
 
-  /* This function fetches the book from the json server. */
-  // TODO: Replace axios with useAxios hook
-  /*   async function getBooks() {
-    try {
-      const response = await axios.get("http://localhost:3000/books");
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
- */
-
   // TODO: Implement search functionality
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
+      <TextField
+        id="outlined-basic"
+        label="Search"
+        variant="outlined"
+        sx={{ mx: "auto", mb: 2 }}
+      />
       {loading && <CircularProgress />}
       {!loading && books && (
         <div>
