@@ -46,7 +46,6 @@ function AddBook() {
       stars: value,
     });
   };
-  //test
 
   // function to handle the change of the input fields in the form and set book state
   const addBookHandler = (e) => {

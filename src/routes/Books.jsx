@@ -14,6 +14,7 @@ import {
   Autocomplete
 } from '@mui/material';
 import useAxios from '../services/useAxios';
+import coverPlaceholder from '../assets/book-cover-placeholder.png';
 
 //component renders a list of books with their details
 //reranders a list of books with their details on change of books
@@ -126,7 +127,7 @@ function Books() {
               >
                 <CardMedia
                   sx={{ height: 250 }}
-                  image={book.img}
+                  image={book.img ? book.img : coverPlaceholder}
                   title={book.name}
                 />
                 <Box sx={{ pt: 2, pl: 2 }}>
