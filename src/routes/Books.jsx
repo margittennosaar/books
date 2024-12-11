@@ -40,19 +40,21 @@ function Books() {
       {loading && <CircularProgress />}
       {!loading && (
         <div>
-          <Stack spacing={2} sx={{ width: 300 }}>
+          <Stack direction="row" spacing={8} sx={{ justifyContent: "center", alignItems: "center", width: '100%' , height: 80}}>
             <Autocomplete
               id="free-solo-demo"
               freeSolo
               options={books.map((option) => option.name)}
               renderInput={(params) => 
                 <TextField {...params} label="book name" />}
+              sx={{ width: '25%' }}
             />
             <Autocomplete
               freeSolo
               id="free-solo-2-demo"
               disableClearable
               options={books.map((option) => option.author)}
+              sx={{ width: '25%' }}
               renderInput={(params) => 
                 <TextField {...params} label="Author"/>}
             />
@@ -63,6 +65,7 @@ function Books() {
                 options={genres}
                 renderInput={(params) => 
                   <TextField {...params} label="Genre"/>}
+                sx={{ width: '25%' }}
             />
           </Stack>
 
