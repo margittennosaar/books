@@ -25,6 +25,7 @@ function Books() {
   const [filterAuthor, setAuthor] = useState('');
   const [filterGenre, setGenre] = useState('');
 
+  //get and render initial [books] list and rerander on every change of [books] (filter apply)
   useEffect(() => {
     if (books.length === 0) {
       getBooks();
@@ -37,12 +38,13 @@ function Books() {
     await get('books');
   }
 
+  //rerander [books] on every change of input
   useEffect(() => {
     filterBooks();
   }, [filterName, filterAuthor, filterGenre]);
 
   const filterBooks = () => {
-    let filtered = books;
+    let filtered = books;//get all books
     if (filterName) {
       filtered = filtered.filter(book=>book.name.toLowerCase().includes(filterName.toLowerCase()));
     }
@@ -57,7 +59,6 @@ function Books() {
 
   const genres = [...new Set(books.flatMap((book) => book.genres))];//get a set of all genres used in 'db'
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
