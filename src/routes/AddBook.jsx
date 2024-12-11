@@ -15,7 +15,7 @@ import { Stack, Typography } from "@mui/material";
 
 // Add books functionality
 function AddBook() {
-  const { alert, post } = useAxios("http://localhost:3001");
+  const { alert, post } = useAxios("http://localhost:3000");
   const [rateValue, setRateValue] = useState(3);
   // Using hook to remember book's details and setting initial values
   const [book, setBook] = useState({

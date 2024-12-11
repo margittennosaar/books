@@ -68,6 +68,59 @@
       "stars": "5",
       "id": 5,
       "img": "https://www.davidjpphillips.com/wp-content/uploads/2023/08/highonlife_copy-195x300.jpg"
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Winnie",
+      "genres": [
+        "Adventure",
+        "Children's Books"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 6
+    },
+    {
+      "author": "People",
+      "name": "Bible",
+      "genres": [
+        "Historical"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s2.adlibris.com/images/5030401/holy-bible-king-james-version-kjv-popular-gift-award-black-leatherette-edition.jpg",
+      "id": 7
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Andrei Savolainen",
+      "genres": [
+        "Biography"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 8
+    },
+    {
+      "author": "King",
+      "name": "Lion",
+      "genres": [
+        "Dystopian"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": "5",
+      "img": "https://picsum.photos/500/600",
+      "id": 9
     }
   ]
 }

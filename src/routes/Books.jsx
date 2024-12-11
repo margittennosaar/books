@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+import useAxios from "axios-hooks";
 import {
   Box,
   Card,
@@ -15,32 +16,20 @@ import {
 
 // Books func to handle books data fetching and render books
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect hook, which is called once to get books.
-  useEffect(() => {
-    // checking if books array is empty and if so, getBooks is called.
-    if (books.length === 0) {
-      getBooks();
-    }
-  }, []); // Runs once on mount
-
-  // TODO: Replace axios with useAxios hook
-  async function getBooks() {
-    try {
-      const response = await axios.get("http://localhost:3000/books");
-      setBooks(response.data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const [{ data: books, loading: isLoading, error }] = useAxios(
+    "http://localhost:3000/books"
+  );
 
   // TODO: Implement search functionality
+  <div className="input-wrapper">
+    <input placeholder="Type to search..." />
+    <p>Hello</p>
+  </div>;
+
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
       {isLoading && <CircularProgress />}
+      {error && <Typography color="error">Error loading books!</Typography>}
       {!isLoading && (
         <div>
           <Stack
