@@ -51,7 +51,7 @@ function Books() {
       filtered = filtered.filter(book=>book.author.toLowerCase().includes(filterAuthor.toLowerCase()));
     }
     if (filterGenre) {
-      filtered = filtered.filter(book=>book.genres.toLowerCase().includes(filterGenre.toLowerCase()));
+      filtered = filtered.filter(book=>book.genres.join(' ,').toLowerCase().includes(filterGenre.toLowerCase()));
     }
     setFilteredBooks(filtered);
   };
