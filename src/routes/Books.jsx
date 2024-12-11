@@ -123,7 +123,7 @@ function Books() {
                   width: '15%',
                   minWidth: 200,
                 }}
-                key={book.name}
+                key={book.id}
               >
                 <CardMedia
                   sx={{ height: 250 }}

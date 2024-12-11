@@ -61,7 +61,7 @@ function AddBook() {
   const postHandler = async (e) => {
     e.preventDefault();
     await post('books', book);
-    showAlert();
+
   }
 
   return (
