@@ -1,6 +1,7 @@
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import useAxios from "axios-hooks";
 import {
   Box,
@@ -13,6 +14,7 @@ import {
   Rating,
   Chip,
   Typography,
+  TextField,
 } from "@mui/material";
 
 // Books func to handle books data fetching and render books
@@ -20,9 +22,16 @@ function Books() {
   const [{ data: books, loading: isLoading, error }] = useAxios(
     "http://localhost:3000/books"
   );
+  const navigate = useNavigate(); // for navigating to book page
+  const [searchQuery, setSearchQuery] = useState("");
 
   // TODO: Implement search functionality
-  const navigate = useNavigate();
+  // Filter books based on the search query
+  const filteredBooks = books?.filter(
+    (book) =>
+      book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Box sx={{ mx: "auto", p: 2 }}>
@@ -30,6 +39,16 @@ function Books() {
       {error && <Typography color="error">Error loading books!</Typography>}
       {!isLoading && (
         <div>
+          {/* Search Bar */}
+          <TextField
+            label="Search Books"
+            variant="outlined"
+            fullWidth
+            sx={{ mb: 2 }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {/* Display Filtered Books */}
           <Stack
             sx={{ justifyContent: "space-around" }}
             spacing={{ xs: 1 }}
@@ -37,7 +56,7 @@ function Books() {
             useFlexGap
             flexWrap="wrap"
           >
-            {books.map((book) => (
+            {filteredBooks.map((book) => (
               <Card
                 sx={{
                   display: "flex",

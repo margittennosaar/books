@@ -12,7 +12,7 @@ function Book() {
     `http://localhost:3000/books/${id}`
   );
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // for back navigation
 
   if (loading) {
     return <CircularProgress />;
