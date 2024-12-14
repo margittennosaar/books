@@ -69,10 +69,11 @@ function Books() {
               id="free-solo-demo"
               freeSolo
               options={books.map((option) => option.name)}
+              onChange={(event, newValue) => setName(newValue)}
               renderInput={(params) => 
                 <TextField 
                   {...params}
-                  label="book name"
+                  label="Book name"
                   value={filterName}
                   onChange={(e)=>setName(e.target.value)}
                 />}
@@ -82,6 +83,7 @@ function Books() {
               freeSolo
               id="free-solo-2-demo"
               disableClearable
+              onChange={(event, newValue) => setAuthor(newValue)}
               options={books.map((option) => option.author)}
               sx={{ width: '25%' }}
               renderInput={(params) => 
@@ -96,6 +98,7 @@ function Books() {
               freeSolo
               id="free-solo-2-demo"
               disableClearable
+              onChange={(event, newValue) => setGenre(newValue)}
               options={genres}
               sx={{ width: '25%' }}
               renderInput={(params) =>
