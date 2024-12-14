@@ -8,19 +8,26 @@ import {
     Chip,
     Typography,
     Button,
+    IconButton,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import coverPlaceholder from '../assets/book-cover-placeholder.png';
+import useAxios from '../services/useAxios';
 
 //component renders a book singlepage
 function Book() {
+    const { remove } = useAxios('http://localhost:3000');
     const location = useLocation();
     const navigate = useNavigate();
     const book = location.state?.book;
-
     if (!book) {
         return <Typography variant="h6">No book details found</Typography>;
     }
 
+    const deleteBook = async () => {
+        await remove(`books/${book.id}`);
+        navigate(-1); // Navigate back after deletion
+    };
     return (
         <Card
             sx={{
@@ -95,20 +102,17 @@ function Book() {
                     size="small"
                     />
                 </Typography>
-                
+                <CardActions
+                    sx={{
+                        pl: 0,
+                        pt: 2,
+                        width: '100%',
+                        justifyContent: 'flex-start',
+                    }}>
+                    <Button size="small" color="error" onClick= {deleteBook} >Delete book</Button>
+                    <Button size="small" onClick={() => navigate(-1)}>Back</Button>        
+                </CardActions>
             </Box>
-            <CardActions
-                sx={{
-                justifyContent: 'space-between',
-                mt: 'auto',
-                pl: 2,
-                pr: 2,
-                pb: 2,
-                }}
-            >
-          
-                <Button size="small" onClick={() => navigate(-1)}>Back</Button>
-            </CardActions>
         </Card>
     );
 }

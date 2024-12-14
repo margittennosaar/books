@@ -29,20 +29,6 @@
       "img": "https://upload.wikimedia.org/wikipedia/en/e/e4/Steve_Jobs_by_Walter_Isaacson.jpg"
     },
     {
-      "id": 3,
-      "author": "George Orwell",
-      "name": "1984",
-      "genres": [
-        "Science Fiction",
-        "Dystopian"
-      ],
-      "completed": true,
-      "start": "2023-05-10",
-      "end": "2023-05-31",
-      "stars": 5,
-      "img": "https://images.booksense.com/images/935/524/9780451524935.jpg"
-    },
-    {
       "id": 4,
       "author": "J.K. Rowling",
       "name": "Harry Potter and the Sorcerer's Stone",
@@ -70,6 +56,20 @@
       "img": "https://www.davidjpphillips.com/wp-content/uploads/2023/08/highonlife_copy-195x300.jpg"
     },
     {
+      "id": 3,
+      "author": "George Orwell",
+      "name": "1984",
+      "genres": [
+        "Science Fiction",
+        "Dystopian"
+      ],
+      "completed": true,
+      "start": "2023-05-10",
+      "end": "2023-05-31",
+      "stars": 5,
+      "img": "https://images.booksense.com/images/935/524/9780451524935.jpg"
+    },
+    {
       "author": "Author",
       "name": "some name",
       "genres": [],
@@ -90,36 +90,6 @@
       "id": 7
     },
     {
-      "author": "qwe",
-      "name": "qwe",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": null,
-      "id": 8
-    },
-    {
-      "author": "dthyfjn",
-      "name": "iouhgh",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": null,
-      "id": 9
-    },
-    {
-      "author": "dthyfjnd",
-      "name": "iouhgh",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": null,
-      "id": 10
-    },
-    {
       "author": "dthyfjnd",
       "name": "iouhghasdasd",
       "genres": [],
@@ -128,16 +98,6 @@
       "end": null,
       "stars": null,
       "id": 11
-    },
-    {
-      "author": "dthyfjndd",
-      "name": "iouhghasdasd",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": null,
-      "id": 12
     },
     {
       "author": "[poiuyt",
