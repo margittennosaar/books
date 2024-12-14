@@ -130,11 +130,23 @@ function Books() {
                 }}
                 key={book.id}
               >
-                <CardMedia
-                  sx={{ height: 250 }}
-                  image={book.img ? book.img : coverPlaceholder}
-                  title={book.name}
-                />
+                <Box
+                sx={{
+                    height: 250,
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                }}
+                >
+                  <CardMedia
+                    component="img"
+                    sx={{ width: '100%' }}
+                    image={book.img ? book.img : coverPlaceholder}
+                    title={book.name}
+                  />
+                </Box>
                 <Box sx={{ pt: 2, pl: 2 }}>
                   {book.genres.map((genre, i) => (
                     <Chip
@@ -142,6 +154,7 @@ function Books() {
                       label={genre}
                       variant="outlined"
                       size="small"
+                      sx={{ mr: 1 }}
                     />
                   ))}
                   <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
