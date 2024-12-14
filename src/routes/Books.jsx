@@ -15,11 +15,13 @@ import {
 } from '@mui/material';
 import useAxios from '../services/useAxios';
 import coverPlaceholder from '../assets/book-cover-placeholder.png';
+import { Link } from 'react-router-dom';
 
 //component renders a list of books with their details
+
 //reranders a list of books with their details on change of books
 function Books() {
-  const {data:books=[], alert, loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
+  const {data:books=[], loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filterName, setName] = useState('');
   const [filterAuthor, setAuthor] = useState('');
@@ -162,7 +164,9 @@ function Books() {
                     readOnly
                     size="small"
                   />
+                <Link to={`/book`} state={{ book }}>
                   <Button size="small">Learn More</Button>
+                </Link>
                 </CardActions>
               </Card>
             ))}
