@@ -8,9 +8,7 @@ import {
     Chip,
     Typography,
     Button,
-    IconButton,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import coverPlaceholder from '../assets/book-cover-placeholder.png';
 import useAxios from '../services/useAxios';
 

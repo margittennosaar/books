@@ -18,8 +18,8 @@ const useAxios = (baseUrl) => {
     try {
       setLoading(true);
       const response = await axios[method](`${baseUrl}/${endpoint}`, payload);
-      setData(response.data);
-      showAlert('Book added successfully', 'success');
+      setData(Array.isArray(response.data) ? response.data : []); // Ensure response data is an array
+      showAlert('Request successful', 'success');
     } catch (err) {
       showAlert(`Error: ${err.message}`, 'error');
     } finally {
@@ -28,12 +28,14 @@ const useAxios = (baseUrl) => {
   };
 
   //all methods:
-  const get = async (endpoint) => makeRequest('get', endpoint);
+  const get = async (endpoint) =>
+    makeRequest('get', endpoint);
   const post = async (endpoint, payload) =>
     makeRequest('post', endpoint, payload);
   const update = async (endpoint, payload) =>
     makeRequest('put', endpoint, payload);
-  const remove = async (endpoint) => makeRequest('delete', endpoint);
+  const remove = async (endpoint) =>
+    makeRequest('delete', endpoint);
 
   return { data, alert, loading, get, post, update, remove };
 };

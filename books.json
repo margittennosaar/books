@@ -1,20 +1,6 @@
 {
   "books": [
     {
-      "id": 1,
-      "author": "Antoine de Saint-Exupéry",
-      "name": "The Little Prince",
-      "genres": [
-        "Fantasy",
-        "Adventure"
-      ],
-      "completed": true,
-      "start": "2023-03-10",
-      "end": "2023-03-25",
-      "stars": 5,
-      "img": "https://upload.wikimedia.org/wikipedia/en/0/05/Littleprince.JPG"
-    },
-    {
       "id": 2,
       "author": "Walter Isaacson",
       "name": "Steve Jobs",
@@ -70,29 +56,12 @@
       "img": "https://images.booksense.com/images/935/524/9780451524935.jpg"
     },
     {
-      "author": "Author",
-      "name": "some name",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": "2",
-      "id": 6
-    },
-    {
-      "author": "Author",
-      "name": "Vladimir",
-      "genres": [],
-      "completed": false,
-      "start": null,
-      "end": null,
-      "stars": "4",
-      "id": 7
-    },
-    {
-      "author": "dthyfjnd",
-      "name": "iouhghasdasd",
-      "genres": [],
+      "author": "jhgfds",
+      "name": "asdfg",
+      "genres": [
+        "Thriller",
+        "Non-Fiction"
+      ],
       "completed": false,
       "start": null,
       "end": null,
@@ -100,30 +69,82 @@
       "id": 11
     },
     {
-      "author": "[poiuyt",
-      "name": "rtyuiop",
+      "author": "jhgfds",
+      "name": "asdfg",
       "genres": [
         "Thriller",
         "Non-Fiction"
       ],
       "completed": false,
-      "start": "12/04/2",
+      "start": null,
       "end": null,
-      "stars": "4",
-      "id": 13
+      "stars": null,
+      "id": 12
     },
     {
-      "author": "[poiuyt",
-      "name": "rtyuiop",
+      "author": "jhgfds",
+      "name": "asdfg",
       "genres": [
         "Thriller",
         "Non-Fiction"
       ],
-      "completed": true,
-      "start": "12/04/2",
-      "end": "09/07/3",
-      "stars": "1.5",
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "id": 13
+    },
+    {
+      "author": "jhgfds",
+      "name": "asdfg",
+      "genres": [
+        "Thriller",
+        "Non-Fiction"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": null,
       "id": 14
+    },
+    {
+      "author": "jhgfds",
+      "name": "asdfg",
+      "genres": [
+        "Thriller",
+        "Non-Fiction"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "id": 15
+    },
+    {
+      "author": "jhgfds",
+      "name": "asdfg",
+      "genres": [
+        "Thriller",
+        "Non-Fiction"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "id": 16
+    },
+    {
+      "author": "jhgfds",
+      "name": "asdfg",
+      "genres": [
+        "Thriller",
+        "Non-Fiction"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "id": 18
     }
   ]
 }

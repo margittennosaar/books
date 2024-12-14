@@ -11,8 +11,10 @@ import {
   Chip,
   Typography,
   TextField,
-  Autocomplete
+  Autocomplete,
+  IconButton,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useAxios from '../services/useAxios';
 import coverPlaceholder from '../assets/book-cover-placeholder.png';
 import { Link } from 'react-router-dom';
@@ -21,12 +23,12 @@ import { Link } from 'react-router-dom';
 
 //reranders a list of books with their details on change of books
 function Books() {
-  const {data:books=[], loading, get}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
+  const {data:books=[], loading, get, remove}  = useAxios('http://localhost:3000');//use custom hook to get data from the server
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [filterName, setName] = useState('');
   const [filterAuthor, setAuthor] = useState('');
   const [filterGenre, setGenre] = useState('');
-
+ 
   //get and render initial [books] list and rerander on every change of [books] (filter apply)
   useEffect(() => {
     if (books.length === 0) {
@@ -38,28 +40,40 @@ function Books() {
 
   const getBooks = async () => {
     await get('books');
-  }
-
-  //rerander [books] on every change of input
-  useEffect(() => {
-    filterBooks();
-  }, [filterName, filterAuthor, filterGenre]);
+  };
 
   const filterBooks = () => {
     let filtered = books;//get all books
     if (filterName) {
-      filtered = filtered.filter(book=>book.name.toLowerCase().includes(filterName.toLowerCase()));
+      filtered = filtered.filter(book=>
+        book.name.toLowerCase().includes(filterName.toLowerCase())
+      );
     }
     if (filterAuthor) {
-      filtered = filtered.filter(book=>book.author.toLowerCase().includes(filterAuthor.toLowerCase()));
+      filtered = filtered.filter(book=>
+        book.author.toLowerCase().includes(filterAuthor.toLowerCase())
+      );
     }
     if (filterGenre) {
-      filtered = filtered.filter(book=>book.genres.join(' ,').toLowerCase().includes(filterGenre.toLowerCase()));
+      filtered = filtered.filter(book=>
+        (book.genres || []).join(' ,').toLowerCase().includes(filterGenre.toLowerCase())
+      );
     }
     setFilteredBooks(filtered);
   };
 
-  const genres = [...new Set(books.flatMap((book) => book.genres))];//get a set of all genres used in 'db'
+  //rerander [books] on every change of input
+  useEffect(() => {
+    filterBooks();
+  }, [filterName, filterAuthor, filterGenre, books]);
+
+  const genres = Array.isArray(books) ? [...new Set(books.flatMap((book) =>
+    Array.isArray(book.genres) ? book.genres : []))] : []; // Ensure books is always an array
+
+  const deleteBook = async (id) => {
+    await remove(`books/${id}`);
+    setFilteredBooks((prevBooks) => prevBooks.filter(book => book.id !== id)); // Update filteredBooks after deletion
+  };
 
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
@@ -127,6 +141,7 @@ function Books() {
                   flexDirection: 'column',
                   width: '15%',
                   minWidth: 200,
+                  position: 'relative',
                 }}
                 key={book.id}
               >
@@ -140,6 +155,13 @@ function Books() {
                     overflow: 'hidden',
                 }}
                 >
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => deleteBook(book.id)}
+                  sx={{ position: 'absolute', top: 0, right: 0, opacity: 0.5 }}
+                  >
+                  <DeleteIcon />
+                </IconButton>
                   <CardMedia
                     component="img"
                     sx={{ width: '100%' }}
