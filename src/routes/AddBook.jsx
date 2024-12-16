@@ -16,7 +16,7 @@ import { Stack, Typography } from "@mui/material";
 // Add books functionality
 function AddBook() {
   const { alert, post } = useAxios("http://localhost:3000");
-  const [rateValue, setRateValue] = useState(3);
+  const [rateValue, setRateValue] = useState(0);
   // Using hook to remember book's details and setting initial values
   const [book, setBook] = useState({
     author: "",
@@ -114,17 +114,18 @@ function AddBook() {
 
         <DateField name="start" label="Started" />
         <DateField name="end" label="Finished" disabled={!book.completed} />
-        <Stack spacing={1}>
+        <Stack spacing={1}></Stack>
+        <div>
           <Rating
             name="stars"
             value={rateValue}
-            onClick={rateChangeHandler}
+            // onClick={rateChangeHandler}
             size="large"
             onChange={(event, newValue) => {
               setRateValue(newValue);
             }}
           />
-        </Stack>
+        </div>
         <Button variant="contained" type="submit">
           Add new
         </Button>

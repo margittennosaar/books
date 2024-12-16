@@ -121,6 +121,29 @@
       "stars": "5",
       "img": "https://picsum.photos/500/600",
       "id": 9
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Lion",
+      "genres": [
+        "Mystery"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "5",
+      "img": "https://s2.adlibris.com/images/5030401/holy-bible-king-james-version-kjv-popular-gift-award-black-leatherette-edition.jpg",
+      "id": 10
+    },
+    {
+      "author": "",
+      "name": "One star",
+      "genres": [],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "1",
+      "id": 11
     }
   ]
 }

@@ -62,3 +62,6 @@ function Books() {
 ```
 
 `{error && <Typography color="error">Error loading books!</Typography>}`
+
+4. Ticket #104 - Ratings on hover misalignment.
+   Fixed stars with wrapping <Rating/> component inside div.
