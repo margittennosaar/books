@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'; 
 import '../services/useAxios';
-import axios from 'axios'; 
+import { TextField, IconButton } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
+
 import {  
   Box,
   Card,
@@ -16,8 +19,14 @@ import {
 import useAxios from '../services/useAxios';
 
 function Books() {  //define a function for books
+  const [searchQuery, setSearchQuery] = useState([]);  //set the books
+  const [filteredBooks, setFilteredBooks] = useState([]);  //set the filtered books
+
+
   const apiURL = 'http://localhost:3000';  //set the apiURL
-  const { data, loading, get} = useAxios(apiURL)
+  const { data, loading, get} = useAxios(apiURL);
+
+
 
   useEffect(() => {  //used useEffect to get the books, if the books are empty then get the books
     if (!data || data.length === 0) {
@@ -25,7 +34,6 @@ function Books() {  //define a function for books
     }
   }, []);
 
-  // TODO: Replace axios with useAxios hook
   async function getBooks() {
     try {
       await get("books")
@@ -33,13 +41,42 @@ function Books() {  //define a function for books
       console.error(error);
     }
   }
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      const result = data.filter((book) =>
+        book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genres.some((genre) => genre.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredBooks(result);
+    } else {
+      setFilteredBooks(data);
+    }
+  }, [searchQuery, data]);
 
-  // TODO: Implement search functionality
   return (
     <Box sx={{ mx: 'auto', p: 2 }}>
       {loading && <CircularProgress />}
       {!loading && (
         <div>
+          <form style={{ display: "flex", alignItems: "center" }} onSubmit={(e) => e.preventDefault()}>
+            <TextField
+              id="search-bar"
+              className="text"
+              variant="outlined"
+              placeholder="Search book by title, author, or genre"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              size="small"
+              sx={{
+                width: 350,
+                margin: "10px auto"
+              }}
+            />
+            <IconButton type="submit" aria-label="search">
+              <SearchIcon style={{ fill: "blue" }} />
+            </IconButton>
+          </form>
           <Stack
             sx={{ justifyContent: 'space-around' }}
             spacing={{ xs: 1 }}
@@ -47,7 +84,7 @@ function Books() {  //define a function for books
             useFlexGap
             flexWrap="wrap"
           >
-            {data?.map((book) => (
+            {filteredBooks?.map((book) => (
               <Card
                 sx={{
                   display: 'flex',
