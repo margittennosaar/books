@@ -16,6 +16,7 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+// import { useEffect } from "react";
 
 // Books func to handle books data fetching and render books
 function Books() {
@@ -24,6 +25,21 @@ function Books() {
   );
   const navigate = useNavigate(); // for navigating to book page
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Fetch books on component mount
+  // useEffect(() => {
+  //   const fetchBooks = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/books");
+  //       setBooks(response.data); // Update books state
+  //     } catch (err) {
+  //       setError(err); // Handle errors
+  //     } finally {
+  //       setIsLoading(false); // End loading state
+  //     }
+  //   };
+  //   fetchBooks();
+  // }, []);
 
   // TODO: Implement search functionality
   // Filter books based on the search query

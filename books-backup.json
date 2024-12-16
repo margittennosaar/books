@@ -1,0 +1,170 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "author": "Antoine de Saint-Exupéry",
+      "name": "The Little Prince",
+      "genres": [
+        "Fantasy",
+        "Adventure"
+      ],
+      "completed": true,
+      "start": "2023-03-10",
+      "end": "2023-03-25",
+      "stars": 5,
+      "img": "https://upload.wikimedia.org/wikipedia/en/0/05/Littleprince.JPG"
+    },
+    {
+      "id": 2,
+      "author": "Walter Isaacson",
+      "name": "Steve Jobs",
+      "genres": [
+        "Biography",
+        "Business"
+      ],
+      "completed": true,
+      "start": "2023-04-05",
+      "end": "2023-04-30",
+      "stars": 4,
+      "img": "https://upload.wikimedia.org/wikipedia/en/e/e4/Steve_Jobs_by_Walter_Isaacson.jpg"
+    },
+    {
+      "id": 3,
+      "author": "George Orwell",
+      "name": "1984",
+      "genres": [
+        "Science Fiction",
+        "Dystopian"
+      ],
+      "completed": true,
+      "start": "2023-05-10",
+      "end": "2023-05-31",
+      "stars": 5,
+      "img": "https://images.booksense.com/images/935/524/9780451524935.jpg"
+    },
+    {
+      "id": 4,
+      "author": "J.K. Rowling",
+      "name": "Harry Potter and the Sorcerer's Stone",
+      "genres": [
+        "Fantasy",
+        "Adventure"
+      ],
+      "completed": true,
+      "start": "2023-06-15",
+      "end": "2023-07-10",
+      "stars": 5,
+      "img": "https://m.media-amazon.com/images/I/91wKDODkgWL._SY522_.jpg"
+    },
+    {
+      "author": "David JP Phillips",
+      "name": "High on Life",
+      "genres": [
+        "Non-Fiction"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": "5",
+      "id": 5,
+      "img": "https://www.davidjpphillips.com/wp-content/uploads/2023/08/highonlife_copy-195x300.jpg"
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Winnie",
+      "genres": [
+        "Adventure",
+        "Children's Books"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 6
+    },
+    {
+      "author": "People",
+      "name": "Bible",
+      "genres": [
+        "Historical"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s2.adlibris.com/images/5030401/holy-bible-king-james-version-kjv-popular-gift-award-black-leatherette-edition.jpg",
+      "id": 7
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Andrei Savolainen",
+      "genres": [
+        "Biography"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": null,
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 8
+    },
+    {
+      "author": "King",
+      "name": "Lion",
+      "genres": [
+        "Dystopian"
+      ],
+      "completed": true,
+      "start": null,
+      "end": null,
+      "stars": "5",
+      "img": "https://picsum.photos/500/600",
+      "id": 9
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Lion",
+      "genres": [
+        "Mystery"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "5",
+      "img": "https://s2.adlibris.com/images/5030401/holy-bible-king-james-version-kjv-popular-gift-award-black-leatherette-edition.jpg",
+      "id": 10
+    },
+    {
+      "author": "",
+      "name": "One star",
+      "genres": [],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "1",
+      "id": 11
+    },
+    {
+      "author": "test",
+      "name": "test",
+      "genres": [],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "2",
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 12
+    },
+    {
+      "author": "",
+      "name": "",
+      "genres": [],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": "3",
+      "id": 13
+    }
+  ]
+}

@@ -1,23 +1,22 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Rating from "@mui/material/Rating";
-import Button from "@mui/material/Button";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import Alert from "@mui/material/Alert";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Rating,
+  Button,
+  OutlinedInput,
+  MenuItem,
+  Select,
+  Alert,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { DateField } from "@mui/x-date-pickers/DateField";
-import useAxios from "../services/useAxios";
 import { bookGenres } from "../genres";
-import { Stack, Typography } from "@mui/material";
 
-// Add books functionality
 function AddBook() {
-  const { alert, post } = useAxios("http://localhost:3000");
-  const [rateValue, setRateValue] = useState(0);
-  // Using hook to remember book's details and setting initial values
   const [book, setBook] = useState({
     author: "",
     name: "",
@@ -28,67 +27,99 @@ function AddBook() {
     stars: null,
   });
 
-  // Handler to change genres
+  const [rateValue, setRateValue] = useState(0);
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
+
+  // Show alert for 5 seconds
+  useEffect(() => {
+    if (alert.show) {
+      const timer = setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [alert.show]);
+
+  // Handler to update book details
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setBook((prevBook) => ({
+      ...prevBook,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   const genreChangeHandler = (event) => {
     const { value } = event.target;
-    setBook({
-      ...book,
+    setBook((prevBook) => ({
+      ...prevBook,
       genres: typeof value === "string" ? value.split(",") : value,
-    });
+    }));
   };
 
-  // Handler to change rates
-  const rateChangeHandler = (event) => {
-    const { value } = event.target;
-    setBook({
-      ...book,
-      stars: value,
-    });
-  };
-
-  // Handler to check book as completed
-  const addBookHandler = (e) => {
-    const { name, value, checked, type } = e.target;
-    if (type === "checkbox" && name === "completed") {
-      setBook({ ...book, [name]: checked });
-    } else {
-      setBook({ ...book, [name]: value });
+  // Handler to submit book
+  const postHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3000/books", {
+        ...book,
+        stars: rateValue, // Add rating value to the book
+      });
+      setAlert({
+        show: true,
+        message: "Book added successfully!",
+        type: "success",
+      });
+      // Optionally clear form
+      setBook({
+        author: "",
+        name: "",
+        genres: [],
+        completed: false,
+        start: null,
+        end: null,
+        stars: null,
+      });
+      setRateValue(0); // Reset rating
+    } catch (error) {
+      setAlert({
+        show: true,
+        message: "Failed to add book. Please try again.",
+        type: "error",
+      });
     }
   };
 
-  // Handler to add new book data
-  function postHandler() {
-    post("books", book);
-  }
-
   return (
-    <form onChange={addBookHandler} onSubmit={postHandler}>
+    <form onSubmit={postHandler}>
       <Stack
         spacing={1}
         alignItems="stretch"
         sx={{ my: 2, mx: "auto", width: "25%" }}
       >
         {alert.show && <Alert severity={alert.type}>{alert.message}</Alert>}
+
         <Typography variant="h4" component="h2" sx={{ my: 10 }}>
           Add a book
         </Typography>
         <TextField
           name="name"
-          id="outlined-basic"
           label="Title"
           variant="outlined"
+          value={book.name}
+          onChange={handleChange}
         />
         <TextField
           name="author"
-          id="outlined-basic"
           label="Author"
           variant="outlined"
+          value={book.author}
+          onChange={handleChange}
         />
         <TextField
           name="img"
-          id="outlined-basic"
           label="Image (url)"
           variant="outlined"
+          value={book.img || ""}
+          onChange={handleChange}
         />
         <Select
           labelId="demo-multiple-name-label"
@@ -108,22 +139,36 @@ function AddBook() {
 
         <FormControlLabel
           name="completed"
-          control={<Checkbox checked={book.completed} />}
+          control={
+            <Checkbox checked={book.completed} onChange={handleChange} />
+          }
           label="Completed"
         />
-
-        <DateField name="start" label="Started" />
-        <DateField name="end" label="Finished" disabled={!book.completed} />
-        <Stack spacing={1}></Stack>
+        <DateField
+          name="start"
+          label="Started"
+          value={book.start}
+          onChange={(newValue) =>
+            setBook((prevBook) => ({ ...prevBook, start: newValue }))
+          }
+        />
+        <DateField
+          name="end"
+          label="Finished"
+          value={book.end}
+          onChange={(newValue) =>
+            setBook((prevBook) => ({ ...prevBook, end: newValue }))
+          }
+          disabled={!book.completed}
+        />
         <div>
           <Rating
             name="stars"
             value={rateValue}
-            // onClick={rateChangeHandler}
-            size="large"
             onChange={(event, newValue) => {
               setRateValue(newValue);
             }}
+            size="large"
           />
         </div>
         <Button variant="contained" type="submit">
