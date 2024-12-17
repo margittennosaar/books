@@ -1,6 +1,8 @@
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import useAxios from "axios-hooks";
 import {
   Box,
   Card,
@@ -14,31 +16,34 @@ import {
   Typography,
   TextField,
 } from "@mui/material";
+// import { useEffect } from "react";
 
+// Books func to handle books data fetching and render books
 function Books() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [{ data: books, loading: isLoading, error }] = useAxios(
+    "http://localhost:3000/books"
+  );
+  const navigate = useNavigate(); // for navigating to book page
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
 
-  const fetchBooks = async () => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get("http://localhost:3000/books");
-      setBooks(response.data);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Fetch books on component mount
+  // useEffect(() => {
+  //   const fetchBooks = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/books");
+  //       setBooks(response.data); // Update books state
+  //     } catch (err) {
+  //       setError(err); // Handle errors
+  //     } finally {
+  //       setIsLoading(false); // End loading state
+  //     }
+  //   };
+  //   fetchBooks();
+  // }, []);
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const filteredBooks = books.filter(
+  // TODO: Implement search functionality
+  // Filter books based on the search query
+  const filteredBooks = books?.filter(
     (book) =>
       book.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       book.author.toLowerCase().includes(searchQuery.toLowerCase())
@@ -50,6 +55,7 @@ function Books() {
       {error && <Typography color="error">Error loading books!</Typography>}
       {!isLoading && (
         <div>
+          {/* Search Bar */}
           <TextField
             label="Search Books"
             variant="outlined"
@@ -58,6 +64,7 @@ function Books() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {/* Display Filtered Books */}
           <Stack
             sx={{ justifyContent: "space-around" }}
             spacing={{ xs: 1 }}
@@ -73,7 +80,7 @@ function Books() {
                   width: "15%",
                   minWidth: 200,
                 }}
-                key={book.id}
+                key={book.name}
               >
                 <CardMedia
                   sx={{ height: 250 }}
@@ -105,7 +112,7 @@ function Books() {
                 >
                   <Rating
                     name="read-only"
-                    value={parseFloat(book.stars)}
+                    value={parseFloat(book.stars)} //Expected a number
                     readOnly
                     size="small"
                   />

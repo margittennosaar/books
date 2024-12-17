@@ -58,11 +58,26 @@
     {
       "author": "",
       "name": "Lion",
-      "genres": [],
+      "genres": [
+        "Mystery"
+      ],
       "completed": false,
       "start": null,
       "end": null,
-      "stars": 5,
+      "stars": 4,
+      "img": "https://s1.adlibris.com/images/45812948/the-tao-of-pooh.jpg",
+      "id": 6
+    },
+    {
+      "author": "Benjamin Hoff",
+      "name": "Book name",
+      "genres": [
+        "Thriller"
+      ],
+      "completed": false,
+      "start": null,
+      "end": null,
+      "stars": 4,
       "img": "https://picsum.photos/500/600",
       "id": 7
     }
